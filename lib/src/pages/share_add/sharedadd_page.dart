@@ -10,7 +10,7 @@ class AddSharedFolder extends StatefulWidget {
 }
 
 List labels = [
-  'Name shared',
+  'Shared name',
   'Path',
 ];
 List<TextEditingController> controllers = [
@@ -72,7 +72,7 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
             padding: const EdgeInsets.all(5.0),
             height: 65,
             child: ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 List.generate(
                   1,
                   (index) {
@@ -82,6 +82,8 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                       //Snackbar error.
                       return handlers.message(context: context, message: "Fill in all fields.", isError: true);
                     }
+
+                    cid.shareAdd(controllers[0].text, controllers[1].text, context);
                   },
                 );
               },

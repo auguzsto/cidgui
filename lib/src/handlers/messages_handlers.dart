@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MessagesHandlers {
-  //Error labels emptys.
+  //Errors.
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> message({
     required BuildContext context,
     required String message,
