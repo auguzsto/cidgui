@@ -26,7 +26,7 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Folder"),
+        title: const Text("Shared folder"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
