@@ -1,4 +1,5 @@
 import 'package:cidgui/src/controllers/cid_controller.dart';
+import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
 
 class AddSharedFolder extends StatefulWidget {
@@ -8,12 +9,16 @@ class AddSharedFolder extends StatefulWidget {
   State<AddSharedFolder> createState() => _AddSharedFolderState();
 }
 
-List labels = ['Name shared', 'Path'];
+List labels = [
+  'Name shared',
+  'Path',
+];
 List<TextEditingController> controllers = [
   TextEditingController(),
   TextEditingController(),
 ];
 final cid = CidController();
+final handlers = MessagesHandlers();
 
 class _AddSharedFolderState extends State<AddSharedFolder> {
   @override
@@ -32,7 +37,7 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                 Icons.folder,
                 size: 150,
                 color: Colors.blue,
-              )
+              ),
             ],
           ),
 
@@ -43,15 +48,17 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
               (index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: controllers[index],
-                    decoration: InputDecoration(
-                      labelText: labels[index],
-                      prefixIcon: index == 0
-                          ? const Icon(Icons.share)
-                          : const Icon(Icons.folder),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                  child: Form(
+                    child: TextFormField(
+                      controller: controllers[index],
+                      decoration: InputDecoration(
+                        labelText: labels[index],
+                        prefixIcon: index == 0
+                            ? const Icon(Icons.share)
+                            : const Icon(Icons.folder),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                     ),
                   ),
@@ -68,8 +75,14 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
               onPressed: () {
                 List.generate(
                   1,
-                  (index) =>
-                      cid.shareAdd(controllers[0].text, controllers[1].text),
+                  (index) {
+                    //Message error labels emptys.
+                    if (controllers[0].text.isEmpty ||
+                        controllers[1].text.isEmpty) {
+                      //Snackbar error.
+                      return handlers.message(context: context, message: "Fill in all fields.", isError: true);
+                    }
+                  },
                 );
               },
               icon: const Icon(Icons.add_task),
