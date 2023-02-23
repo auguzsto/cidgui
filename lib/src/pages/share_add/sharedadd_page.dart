@@ -19,6 +19,7 @@ List<TextEditingController> controllers = [
 ];
 final cid = CidController();
 final handlers = MessagesHandlers();
+bool isLoading = false;
 
 class _AddSharedFolderState extends State<AddSharedFolder> {
   @override
@@ -75,20 +76,39 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
               onPressed: () async {
                 List.generate(
                   1,
-                  (index) {
+                  (index) async {
                     //Message error labels emptys.
                     if (controllers[0].text.isEmpty ||
                         controllers[1].text.isEmpty) {
                       //Snackbar error.
-                      return handlers.message(context: context, message: "Fill in all fields.", isError: true);
+                      return handlers.message(
+                          context: context,
+                          message: "Fill in all fields.",
+                          isError: true);
                     }
+                    setState(() {
+                      isLoading = true;
+                    });
 
-                    cid.shareAdd(controllers[0].text, controllers[1].text, context);
+                    await cid.shareAdd(
+                        controllers[0].text, controllers[1].text, context);
+
+                    setState(() {
+                      isLoading = false;
+                    });
                   },
                 );
               },
-              icon: const Icon(Icons.add_task),
-              label: const Text("Send"),
+              icon: isLoading == true
+                  ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                  )
+                  : const Icon(Icons.add_task),
+              label: isLoading == true ? const Text("") : const Text("Send"),
             ),
           )
         ],
