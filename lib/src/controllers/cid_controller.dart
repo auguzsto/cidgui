@@ -27,6 +27,7 @@ class CidController {
     }
   }
 
+  //Join in AD.
   Future enterDomain(String domain, String adminAccount, String password) async {
     try {
       await shell.run(
