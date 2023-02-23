@@ -108,7 +108,7 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                       ),
                   )
                   : const Icon(Icons.add_task),
-              label: isLoading == true ? const Text("") : const Text("Send"),
+              label: isLoading == true ? const Text("") : const Text("Shared"),
             ),
           )
         ],
