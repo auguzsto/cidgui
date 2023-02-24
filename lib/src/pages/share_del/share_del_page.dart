@@ -12,6 +12,7 @@ class ShareDelPage extends StatefulWidget {
 final controller = TextEditingController();
 final handlers = MessagesHandlers();
 final cid = CidController();
+bool isLoading = false;
 
 class _ShareDelPageState extends State<ShareDelPage> {
   @override
@@ -36,6 +37,8 @@ class _ShareDelPageState extends State<ShareDelPage> {
             const SizedBox(
               height: 10,
             ),
+
+            //Label
             TextFormField(
               controller: controller,
               decoration: InputDecoration(
@@ -49,6 +52,8 @@ class _ShareDelPageState extends State<ShareDelPage> {
             const SizedBox(
               height: 10,
             ),
+
+            //Button
             SizedBox(
               height: 55,
               child: ElevatedButton.icon(
@@ -59,10 +64,27 @@ class _ShareDelPageState extends State<ShareDelPage> {
                         message: "Fill in the field.",
                         isError: true);
                   }
+                  setState(() {
+                    isLoading = true;
+                  });
+
                   await cid.shareDel(controller.text, context);
+
+                  setState(() {
+                    isLoading = false;
+                  });
                 },
-                icon: const Icon(Icons.folder_off),
-                label: const Text("Remove"),
+                icon: isLoading == true
+                    ? const SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                    )
+                    : const Icon(Icons.folder_off),
+                label:
+                    isLoading == true ? const Text("") : const Text("Remove"),
               ),
             )
           ],
