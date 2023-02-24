@@ -1,5 +1,7 @@
 import 'package:cidgui/src/constants/menus.dart';
+import 'package:cidgui/src/constants/menus_icons.dart';
 import 'package:cidgui/src/constants/routes.dart';
+import 'package:cidgui/src/pages/home/components/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,8 +16,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: const CustomDrawer(),
       appBar: AppBar(
-        title: const Text("CID"),
+        title: const Text("CID FLUTTER"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,7 +51,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: List.generate(
-                MyMenu.option.length,
+                MyMenu.options.length,
                 (index) => Container(
                   padding: const EdgeInsets.all(2),
                   height: 50,
@@ -62,21 +65,17 @@ class _HomePageState extends State<HomePage> {
                               : Navigator.pushNamed(
                                   context, RoutesPages.delFolderShared);
                     },
-                    icon: index == 0
-                        ? const Icon(Icons.domain_add)
-                        : index == 1
-                            ? const Icon(Icons.folder_shared)
-                            : const Icon(Icons.folder_off),
+                    icon: MyMenuIcons.icons[index],
                     label: Row(
                       children: [
-                        Text(MyMenu.option[index]),
+                        Text(MyMenu.options[index]),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
