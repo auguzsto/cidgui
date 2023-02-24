@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cidgui/src/constants/commands.dart';
+import 'package:cidgui/src/controllers/stdout_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
@@ -6,13 +9,18 @@ import 'package:process_run/shell.dart';
 class CidController {
   final shell = Shell();
   final handlers = MessagesHandlers();
+  final stdout = StdoutController();
 
   //Add shared folder cid.
-  Future shareAdd({required String name, required String path, String? addUser, String? rule, required BuildContext context}) async {
+  Future shareAdd(
+      {required String name,
+      required String path,
+      String? addUser,
+      String? rule,
+      required BuildContext context}) async {
     try {
       //Sharing
-      print("rule=${Commands.ruleAddUser}${addUser ?? Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}");
-      await shell.run('''
+      final result = await shell.run('''
         ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddUser}${addUser!.isEmpty ? Commands.addUserDefault : addUser}${rule ?? Commands.ruleOnlyRead}'
         ''');
 
@@ -25,14 +33,22 @@ class CidController {
       await shell.run('''
         ${Commands.groupOwner} '$path'
         ''');
-      if (context.mounted) {
+
+      //If folder was added.
+      if (stdout.added(result) && context.mounted) {
         return handlers.message(
-            context: context, message: "Done, your folder has been shared.");
+            context: context, message: "Done, your folder as shared.");
+      }
+
+      //If folder was updated.
+      if (stdout.updated(result) && context.mounted) {
+        return handlers.message(
+            context: context, message: "Done, your folder as updated.");
       }
     } catch (e) {
       return handlers.message(
           context: context,
-          message: "Shared name or path already exists.",
+          message: "Error. Check the entered data.",
           isError: true);
     }
   }
@@ -44,9 +60,10 @@ class CidController {
       await shell.run('''
         ${Commands.cidShareDel} '$name' 
         ''');
-      if(context.mounted) {
-        return handlers.message(context: context, message: "Done, your folder was removed.");
-      } 
+      if (context.mounted) {
+        return handlers.message(
+            context: context, message: "Done, your folder was removed.");
+      }
     } catch (e) {
       if (e.toString().contains('exitCode 1')) {
         return handlers.message(
