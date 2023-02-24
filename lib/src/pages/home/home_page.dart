@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                   Icon(
                     Icons.admin_panel_settings,
                     color: Colors.blue,
-                    size: 110,
+                    size: 150,
                   ),
                   Text("Manager")
                 ],
@@ -59,7 +59,8 @@ class _HomePageState extends State<HomePage> {
                           : index == 1
                               ? Navigator.pushNamed(
                                   context, RoutesPages.addFolderShared)
-                              : null;
+                              : Navigator.pushNamed(
+                                  context, RoutesPages.delFolderShared);
                     },
                     icon: index == 0
                         ? const Icon(Icons.domain_add)
