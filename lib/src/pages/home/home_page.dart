@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         ? const Icon(Icons.domain_add)
                         : index == 1
                             ? const Icon(Icons.folder_shared)
-                            : const Icon(Icons.remove_circle),
+                            : const Icon(Icons.folder_off),
                     label: Row(
                       children: [
                         Text(MyMenu.option[index]),
