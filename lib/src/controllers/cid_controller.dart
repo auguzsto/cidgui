@@ -39,10 +39,22 @@ class CidController {
   //Delete shared folder cid.
   Future shareDel(String name, BuildContext context) async {
     try {
+      //Removing.
       await shell.run('''
-        ${Commands.cidShareDel} name='$name' 
+        ${Commands.cidShareDel} '$name' 
         ''');
-    } catch (e) {}
+      if(context.mounted) {
+        return handlers.message(context: context, message: "Done, your folder was removed.");
+      } 
+    } catch (e) {
+      if (e.toString().contains('exitCode 1')) {
+        return handlers.message(
+            context: context, message: "Name not found.", isError: true);
+      }
+
+      return handlers.message(
+          context: context, message: "Error", isError: true);
+    }
   }
 
   //Join in AD.

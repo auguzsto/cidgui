@@ -1,3 +1,5 @@
+import 'package:cidgui/src/controllers/cid_controller.dart';
+import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
 
 class ShareDelPage extends StatefulWidget {
@@ -6,6 +8,10 @@ class ShareDelPage extends StatefulWidget {
   @override
   State<ShareDelPage> createState() => _ShareDelPageState();
 }
+
+final controller = TextEditingController();
+final handlers = MessagesHandlers();
+final cid = CidController();
 
 class _ShareDelPageState extends State<ShareDelPage> {
   @override
@@ -31,6 +37,7 @@ class _ShareDelPageState extends State<ShareDelPage> {
               height: 10,
             ),
             TextFormField(
+              controller: controller,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.share),
                 labelText: "Shared name",
@@ -45,9 +52,18 @@ class _ShareDelPageState extends State<ShareDelPage> {
             SizedBox(
               height: 55,
               child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.folder_off),
-                  label: const Text("Remove")),
+                onPressed: () async {
+                  if (controller.text.isEmpty) {
+                    handlers.message(
+                        context: context,
+                        message: "Fill in the field.",
+                        isError: true);
+                  }
+                  await cid.shareDel(controller.text, context);
+                },
+                icon: const Icon(Icons.folder_off),
+                label: const Text("Remove"),
+              ),
             )
           ],
         ),
