@@ -13,7 +13,7 @@ class CidController {
       //Sharing
       print("rule=${Commands.ruleAddUser}${addUser ?? Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}");
       await shell.run('''
-        ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddUser}${addUser!.isEmpty ? Commands.addUserDefault : addUser}${rule!.isEmpty ? Commands.ruleOnlyRead : rule}'
+        ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddUser}${addUser!.isEmpty ? Commands.addUserDefault : addUser}${rule ?? Commands.ruleOnlyRead}'
         ''');
 
       //CHMOD.
