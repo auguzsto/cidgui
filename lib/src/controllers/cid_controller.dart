@@ -37,7 +37,7 @@ class CidController {
       BuildContext context) async {
     try {
       await shell.run('''
-        ${Commands.cidJoin} '$domain' '$adminAccount' '$password'
+        ${Commands.cidJoin} domain='$domain' user='$adminAccount' pass='$password'
         ''');
       return handlers.message(
           context: context, message: "Done, you enter in domain.");

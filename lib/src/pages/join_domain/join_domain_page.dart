@@ -23,6 +23,7 @@ List<TextEditingController> controller = [
 
 final cid = CidController();
 final handlers = MessagesHandlers();
+bool isLoading = false;
 
 class _JoinDomainPageState extends State<JoinDomainPage> {
   @override
@@ -75,16 +76,35 @@ class _JoinDomainPageState extends State<JoinDomainPage> {
             padding: const EdgeInsets.all(5.0),
             height: 65,
             child: ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 if (controller[0].text.isEmpty ||
                     controller[1].text.isEmpty ||
                     controller[2].text.isEmpty) {
                   handlers.message(
                       context: context, message: "Error", isError: true);
+                  return;
                 }
+                setState(() {
+                  isLoading = true;
+                });
+
+                await cid.enterDomain(controller[0].text, controller[1].text,
+                    controller[2].text, context);
+
+                setState(() {
+                  isLoading = false;
+                });
               },
-              icon: const Icon(Icons.domain_add),
-              label: const Text("Enter"),
+              icon: isLoading == true
+                  ? const SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Icon(Icons.domain_add),
+              label: isLoading == true ? const Text("") : const Text("Enter"),
             ),
           )
         ],
