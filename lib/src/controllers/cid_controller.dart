@@ -13,8 +13,10 @@ class CidController {
       await shell.run('''
         ${Commands.cidShareAdd} name='$name' path='$path'
         ''');
-      return handlers.message(
-          context: context, message: "Done, your folder has been shared.");
+      if (context.mounted) {
+        return handlers.message(
+            context: context, message: "Done, your folder has been shared.");
+      }
     } catch (e) {
       return handlers.message(
           context: context,
@@ -39,9 +41,18 @@ class CidController {
       await shell.run('''
         ${Commands.cidJoin} domain='$domain' user='$adminAccount' pass='$password'
         ''');
-      return handlers.message(
-          context: context, message: "Done, you enter in domain.");
+      if (context.mounted) {
+        return handlers.message(
+            context: context, message: "Done, you enter in domain. Reboot system.");
+      }
     } catch (e) {
+      if (e.toString().contains('exitCode 1')) {
+        return handlers.message(
+          context: context,
+          message: "You are already part of a domain.",
+          isError: true,
+        );
+      }
       return handlers.message(
         context: context,
         message: "Check that the fields are correct.",
