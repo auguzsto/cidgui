@@ -54,10 +54,12 @@ class _HomePageState extends State<HomePage> {
                   height: 50,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      index == 1
-                          ? Navigator.pushNamed(
-                              context, RoutesPages.addFolderShared)
-                          : null;
+                      index == 0
+                          ? Navigator.pushNamed(context, RoutesPages.joinDomain)
+                          : index == 1
+                              ? Navigator.pushNamed(
+                                  context, RoutesPages.addFolderShared)
+                              : null;
                     },
                     icon: index == 0
                         ? const Icon(Icons.domain_add)
