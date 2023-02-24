@@ -81,7 +81,7 @@ class _JoinDomainPageState extends State<JoinDomainPage> {
                     controller[1].text.isEmpty ||
                     controller[2].text.isEmpty) {
                   handlers.message(
-                      context: context, message: "Error", isError: true);
+                      context: context, message: "Fill in all fields.", isError: true);
                   return;
                 }
                 setState(() {

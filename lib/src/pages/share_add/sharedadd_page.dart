@@ -1,3 +1,4 @@
+import 'package:cidgui/src/constants/labels_icons.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,12 @@ class AddSharedFolder extends StatefulWidget {
 List labels = [
   'Shared name',
   'Path',
+  'User (Optional)',
+  'Group (Optional)'
 ];
 List<TextEditingController> controllers = [
+  TextEditingController(),
+  TextEditingController(),
   TextEditingController(),
   TextEditingController(),
 ];
@@ -54,9 +59,7 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                       controller: controllers[index],
                       decoration: InputDecoration(
                         labelText: labels[index],
-                        prefixIcon: index == 0
-                            ? const Icon(Icons.share)
-                            : const Icon(Icons.folder),
+                        prefixIcon: ShareAddLabelsIcon.icons[index],
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -101,12 +104,12 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
               },
               icon: isLoading == true
                   ? const SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
                         color: Colors.white,
                       ),
-                  )
+                    )
                   : const Icon(Icons.add_task),
               label: isLoading == true ? const Text("") : const Text("Shared"),
             ),
