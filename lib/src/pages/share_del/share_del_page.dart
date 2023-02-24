@@ -27,6 +27,9 @@ class _ShareDelPageState extends State<ShareDelPage> {
                 size: 150,
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             TextFormField(
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.share),
