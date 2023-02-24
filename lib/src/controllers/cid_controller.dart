@@ -8,11 +8,12 @@ class CidController {
   final handlers = MessagesHandlers();
 
   //Add shared folder cid.
-  Future shareAdd(String name, String path, BuildContext context) async {
+  Future shareAdd({required String name, required String path, String? addUser, String? rule, required BuildContext context}) async {
     try {
       //Sharing
+      print("rule=${Commands.ruleAddUser}${addUser ?? Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}");
       await shell.run('''
-        ${Commands.cidShareAdd} name='$name' path='$path'
+        ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddUser}${addUser!.isEmpty ? Commands.addUserDefault : addUser}${rule!.isEmpty ? Commands.ruleOnlyRead : rule}'
         ''');
 
       //CHMOD.
