@@ -11,7 +11,7 @@ class JoinDomainPage extends StatefulWidget {
 
 List labels = [
   'Domain name (FQDN)',
-  'Admin User Account',
+  'Admin Account',
   'Password',
 ];
 

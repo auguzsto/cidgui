@@ -10,8 +10,19 @@ class CidController {
   //Add shared folder cid.
   Future shareAdd(String name, String path, BuildContext context) async {
     try {
+      //Sharing
       await shell.run('''
         ${Commands.cidShareAdd} name='$name' path='$path'
+        ''');
+
+      //CHMOD.
+      await shell.run('''
+        ${Commands.chmodDefault} '$path'
+        ''');
+
+      //Group Owner.
+      await shell.run('''
+        ${Commands.groupOwner} '$path'
         ''');
       if (context.mounted) {
         return handlers.message(
@@ -43,7 +54,8 @@ class CidController {
         ''');
       if (context.mounted) {
         return handlers.message(
-            context: context, message: "Done, you enter in domain. Reboot system.");
+            context: context,
+            message: "Done, you enter in domain. Reboot system.");
       }
     } catch (e) {
       if (e.toString().contains('exitCode 1')) {
