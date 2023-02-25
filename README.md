@@ -29,6 +29,13 @@ Imagem de exemplo:
 
 Reinicie a máquina após alteração.
 
+# Functions
+- [x] Enter in domain.
+- [ ] Leave the domain.
+- [x] Add folder shared.
+- [x] Remove folder shared.
+
+
 ## Screenshots.
 ### Home screen.
 <div align="center"><img src="https://i.imgur.com/VJRUtZP.png"></div>
