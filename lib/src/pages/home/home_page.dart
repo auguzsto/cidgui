@@ -46,31 +46,54 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
+          //Menus
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
                 MyMenu.options.length,
-                (index) => Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  height: 110,
-                  width: 160,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        MyMenuIcons.icons[index],
-                        color: Colors.blue,
-                        size: 55,
+                (index) => MouseRegion(
+                  cursor: MaterialStateMouseCursor.clickable,
+                  child: GestureDetector(
+                    onTap: () async {
+                      //Navigator pages.
+                      index == 0
+                          ? Navigator.pushNamed(context, RoutesPages.joinDomain)
+                          : index == 1
+                              ? Navigator.pushNamed(
+                                  context, RoutesPages.addFolderShared)
+                              : index == 2
+                                  ? Navigator.pushNamed(
+                                      context, RoutesPages.delFolderShared)
+                                  : null;
+                    },
+
+                    //Containers
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 25),
+                      height: 110,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      Text(MyMenu.options[index]),
-                    ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            MyMenuIcons.icons[index],
+                            color: Colors.blue,
+                            size: 60,
+                          ),
+                          Text(
+                            MyMenu.options[index],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
