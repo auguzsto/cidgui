@@ -31,13 +31,13 @@ Reinicie a máquina após alteração.
 
 ## Screenshots.
 ### Home screen.
-<div align="center"><img src="https://i.imgur.com/9UzBWAS.png"></div>
+<div align="center"><img src="https://i.imgur.com/VJRUtZP.png"></div>
 
 ### Enter domain screen.
-<div align="center"><img src="https://i.imgur.com/Zm0Frh9.png"></div>
+<div align="center"><img src="https://i.imgur.com/81gGv4X.png"></div>
 
 ### Shared folder screen.
-<div align="center"><img src="https://i.imgur.com/C4y6Ixu.png"></div>
+<div align="center"><img src="https://i.imgur.com/1z96fg5.png"></div>
 
 ### Remove folder screen.
-<div align="center"><img src="https://i.imgur.com/ErgYzVx.png"></div>
+<div align="center"><img src="https://i.imgur.com/NChMK0B.png"></div>

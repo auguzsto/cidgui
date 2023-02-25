@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          //Menus
+          //Menu
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
