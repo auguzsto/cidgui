@@ -48,29 +48,29 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: List.generate(
                 MyMenu.options.length,
                 (index) => Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  height: 110,
-                  width: 160,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        MyMenuIcons.icons[index],
-                        color: Colors.blue,
-                        size: 55,
-                      ),
-                      Text(MyMenu.options[index]),
-                    ],
+                  padding: const EdgeInsets.all(2),
+                  height: 50,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      index == 0
+                          ? Navigator.pushNamed(context, RoutesPages.joinDomain)
+                          : index == 1
+                              ? Navigator.pushNamed(
+                                  context, RoutesPages.addFolderShared)
+                              : Navigator.pushNamed(
+                                  context, RoutesPages.delFolderShared);
+                    },
+                    icon: MyMenuIcons.icons[index],
+                    label: Row(
+                      children: [
+                        Text(MyMenu.options[index]),
+                      ],
+                    ),
                   ),
                 ),
               ),

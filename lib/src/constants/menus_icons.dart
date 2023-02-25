@@ -8,9 +8,9 @@ abstract class DrawerMenuIcons {
 }
 
 abstract class MyMenuIcons {
-  static const List<Icon> icons = [
-    Icon(Icons.domain_add),
-    Icon(Icons.folder_shared),
-    Icon(Icons.folder_off),
+  static const List<IconData> icons = [
+    Icons.domain_add,
+    Icons.folder_shared,
+    Icons.folder_off,
   ];
 }

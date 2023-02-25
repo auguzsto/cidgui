@@ -14,6 +14,19 @@ class AppWidget extends StatelessWidget {
       title: 'CID GUI ',
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.blue),
+          elevation: 0,
+          shape: Border(bottom: BorderSide(color: Colors.blue)),
+          backgroundColor: Colors.transparent,
+          titleTextStyle: TextStyle(
+            color: Colors.blue,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
+      ),
       initialRoute: '/',
       routes: {
         RoutesPages.addFolderShared: (context) => const AddSharedFolder(),
