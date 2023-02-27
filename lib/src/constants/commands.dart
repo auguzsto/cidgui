@@ -6,7 +6,9 @@ abstract class Commands {
   static const String chmodDefault = 'sudo chmod -R 771';
   static const String groupOwner = "sudo chgrp 'domain admins'";
   static const String addUserDefault = 'everyone';
+  static const String addGroupDefault = 'everyone';
   static const String ruleAddUser = '+u:';
+  static const String ruleAddGroup = '+g:';
   static const String ruleOnlyRead = ':r';
   static const String ruleReadAndWrite = ':f';
   static const String cidStatus = 'sudo cid status';
