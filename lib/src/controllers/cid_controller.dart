@@ -62,11 +62,10 @@ class CidController {
       //Removing.
       await shell.run('''
         ${Commands.cidShareDel} '$name' 
-        ''');
-      if (context.mounted) {
+        ''').then((value) {
         return handlers.message(
             context: context, message: "Done, your folder was removed.");
-      }
+      });
     } catch (e) {
       if (e.toString().contains('exitCode 1')) {
         return handlers.message(
