@@ -8,3 +8,10 @@ abstract class ShareAddLabelsIcon {
     Icon(Icons.group_add),
   ];
 }
+
+abstract class LeaveDomainLabelsIcon {
+  static const List<IconData> icons = [
+    Icons.person,
+    Icons.key,
+  ];
+}

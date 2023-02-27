@@ -60,7 +60,8 @@ class _HomePageState extends State<HomePage> {
                     onTap: () async {
                       //Navigator pages.
                       index == 0
-                          ? Navigator.pushNamed(context, RoutesPages.joinDomain)
+                          ? Navigator.pushNamed(
+                              context, RoutesPages.leaveDomain)
                           : index == 1
                               ? Navigator.pushNamed(
                                   context, RoutesPages.addFolderShared)

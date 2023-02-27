@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:cidgui/src/constants/commands.dart';
+import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/stdout_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
+import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
 
@@ -98,6 +100,35 @@ class CidController {
       return handlers.message(
         context: context,
         message: "Check that the fields are correct.",
+        isError: true,
+      );
+    }
+  }
+
+  Future checkDomain(BuildContext context) async {
+    try {
+      //Delay future.
+      await Future.delayed(const Duration(seconds: 3), () async {
+        await shell.run('''
+        ${Commands.cidStatus}
+        ''')
+            //Conditions.
+            .then((value) {
+          if (stdout.status(value)) {
+            return Navigator.pushNamed(context, RoutesPages.home);
+          }
+
+          return handlers.message(
+            context: context,
+            message: "This computer is not part of the domain.",
+            isWarning: true,
+          );
+        });
+      });
+    } catch (e) {
+      return handlers.message(
+        context: context,
+        message: "Error.",
         isError: true,
       );
     }

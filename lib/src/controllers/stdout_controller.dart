@@ -7,9 +7,14 @@ class StdoutController {
   bool added(List<ProcessResult> result) {
     return result[0].stdout.toString().contains(StdoutCid.added);
   }
-  
+
   //Stdout updated folder.
   bool updated(List<ProcessResult> result) {
     return result[0].stdout.toString().contains(StdoutCid.updated);
+  }
+
+  //Stdout updated folder.
+  bool status(List<ProcessResult> result) {
+    return result[0].stdout.toString().contains(StdoutCid.computers);
   }
 }
