@@ -31,8 +31,12 @@ Reinicie a máquina após alteração.
 
 # Functions
 - [x] Enter in domain.
-- [ ] Leave the domain.
+- [x] Leave the domain.
 - [x] Add folder shared.
+     - [x] Permission user.
+     - [ ] Permission group.
+     - [ ] Vetos samba files.
+     - [x] Choose read or read and write.
 - [x] Remove folder shared.
 
 
