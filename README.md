@@ -34,10 +34,13 @@ Reinicie a máquina após alteração.
 - [x] Leave the domain.
 - [x] Add folder shared.
      - [x] Permission user.
-     - [ ] Permission group.
+     - [x] Permission group.
      - [ ] Vetos samba files.
      - [x] Choose read or read and write.
 - [x] Remove folder shared.
+- [ ] SQLite methods.
+     - [ ] See my domain.
+     - [ ] List folders shareds.
 
 
 ## Screenshots.
