@@ -37,14 +37,21 @@ Reinicie a máquina após alteração.
 
 
 ## Screenshots.
+
+### Check domain screen.
+<div align="center"><img src="https://i.imgur.com/LpTd58r.png"></div>
+
 ### Home screen.
-<div align="center"><img src="https://i.imgur.com/VJRUtZP.png"></div>
+<div align="center"><img src="https://i.imgur.com/YQeuQ22.png"></div>
 
 ### Enter domain screen.
 <div align="center"><img src="https://i.imgur.com/81gGv4X.png"></div>
 
+## Leave domain screen.
+<div align="center"><img src="https://i.imgur.com/qezk77T.png"></div>
+
 ### Shared folder screen.
-<div align="center"><img src="https://i.imgur.com/1z96fg5.png"></div>
+<div align="center"><img src="https://i.imgur.com/I8BWjMj.png"></div>
 
 ### Remove folder screen.
-<div align="center"><img src="https://i.imgur.com/NChMK0B.png"></div>
+<div align="center"><img src="https://i.imgur.com/BqwSbuM.png"></div>
