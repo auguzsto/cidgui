@@ -29,7 +29,7 @@ Imagem de exemplo:
 
 Reinicie a máquina após alteração.
 
-# Functions
+# Tasks
 - [x] Enter in domain.
 - [x] Leave the domain.
 - [x] Add folder shared.
