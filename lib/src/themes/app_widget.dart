@@ -15,7 +15,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'CID GUI ',
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const HomeCheckPage(),
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.blue),
@@ -36,6 +36,7 @@ class AppWidget extends StatelessWidget {
         RoutesPages.joinDomain: (context) => const JoinDomainPage(),
         RoutesPages.delFolderShared: (context) => const ShareDelPage(),
         RoutesPages.leaveDomain: (context) => LeaveDomainPage(),
+        RoutesPages.checkDomain: (context) => const HomeCheckPage(),
       },
     );
   }

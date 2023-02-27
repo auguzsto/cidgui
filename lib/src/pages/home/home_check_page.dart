@@ -1,3 +1,4 @@
+import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -27,13 +28,40 @@ class _HomeCheckPageState extends State<HomeCheckPage> {
                 children: const [
                   CircularProgressIndicator(),
                   SizedBox(height: 10),
-                  Text("Checking if this computer is part of some domain."),
+                  Text("Checking if this computer is part of domain"),
                 ],
               ),
             );
           }
 
-          return const Center();
+          //Message of enter in domain.
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Center(
+                child: Icon(
+                  Icons.warning,
+                  color: Colors.orange,
+                  size: 150,
+                ),
+              ),
+              const Text(
+                  "You must be part of a domain to use the features of this application."),
+
+              //Button
+              Container(
+                height: 50,
+                margin: const EdgeInsets.all(15),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RoutesPages.joinDomain);
+                  },
+                  icon: const Icon(Icons.login),
+                  label: const Text("Sign in to the domain."),
+                ),
+              ),
+            ],
+          );
         },
       ),
     );

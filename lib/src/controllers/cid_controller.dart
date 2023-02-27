@@ -85,6 +85,7 @@ class CidController {
         ${Commands.cidJoin} domain='$domain' user='$adminAccount' pass='$password'
         ''');
       if (context.mounted) {
+        Navigator.pushNamed(context, RoutesPages.checkDomain);
         return handlers.message(
             context: context,
             message: "Done, you enter in domain. Reboot system.");
@@ -105,6 +106,16 @@ class CidController {
     }
   }
 
+  Future leaveDomain(
+      String adminAccount, String password, BuildContext context) async {
+    await shell.run('''
+      ${Commands.cidLeave} user='$adminAccount' pass='$password'
+      ''').then((value) {
+      return Navigator.pushNamed(context, RoutesPages.checkDomain);
+    });
+  }
+
+  //Check domain
   Future checkDomain(BuildContext context) async {
     try {
       //Delay future.
@@ -117,19 +128,13 @@ class CidController {
           if (stdout.status(value)) {
             return Navigator.pushNamed(context, RoutesPages.home);
           }
-
-          return handlers.message(
-            context: context,
-            message: "This computer is not part of the domain.",
-            isWarning: true,
-          );
         });
       });
     } catch (e) {
       return handlers.message(
         context: context,
-        message: "Error.",
-        isError: true,
+        message: "This computer is not part of the domain.",
+        isWarning: true,
       );
     }
   }

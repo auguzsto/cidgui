@@ -1,9 +1,16 @@
 import 'package:cidgui/src/constants/labels_icons.dart';
+import 'package:cidgui/src/controllers/cid_controller.dart';
+import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
 import 'package:flutter/material.dart';
 
-class LeaveDomainPage extends StatelessWidget {
+class LeaveDomainPage extends StatefulWidget {
   LeaveDomainPage({super.key});
 
+  @override
+  State<LeaveDomainPage> createState() => _LeaveDomainPageState();
+}
+
+class _LeaveDomainPageState extends State<LeaveDomainPage> {
   List labels = [
     'Admin Account',
     'Password',
@@ -13,6 +20,9 @@ class LeaveDomainPage extends StatelessWidget {
     TextEditingController(),
     TextEditingController(),
   ];
+
+  final cid = CidController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +52,7 @@ class LeaveDomainPage extends StatelessWidget {
                   margin: const EdgeInsets.all(5),
                   child: TextFormField(
                     controller: controller[index],
+                    obscureText: index == 1 ? true : false,
                     decoration: InputDecoration(
                         labelText: labels[index],
                         prefixIcon: Icon(
@@ -60,9 +71,41 @@ class LeaveDomainPage extends StatelessWidget {
               padding: const EdgeInsets.all(5.0),
               height: 65,
               child: ElevatedButton.icon(
-                onPressed: () async {},
-                icon: const Icon(Icons.exit_to_app),
-                label: const Text("Leave"),
+                onPressed: () async {
+                  if (controller[0].text.isNotEmpty ||
+                      controller[1].text.isNotEmpty) {
+                    setState(() {
+                      isLoading = true;
+                    });
+
+                    await cid.leaveDomain(
+                        controller[0].text, controller[1].text, context);
+
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
+
+                  if (context.mounted) {
+                    handlers.message(
+                      context: context,
+                      message: "Fill in all fields.",
+                      isError: true,
+                    );
+                  }
+                },
+                icon: isLoading == true
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : const Icon(Icons.exit_to_app),
+                label: isLoading == true ? const Text("") : const Text("Leave"),
               ),
             )
           ],
