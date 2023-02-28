@@ -18,12 +18,13 @@ class CidController {
       {required String name,
       required String path,
       String? addUser,
+      String? addGroup,
       String? rule,
       required BuildContext context}) async {
     try {
       //Sharing
       final result = await shell.run('''
-        ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddUser}${addUser!.isEmpty ? Commands.addUserDefault : addUser}${rule ?? Commands.ruleOnlyRead}'
+        ${Commands.cidShareAdd} name='$name' path='$path' rule='${addUser!.isNotEmpty ? Commands.ruleAddUser : addGroup!.isNotEmpty ? Commands.ruleAddGroup : Commands.ruleAddUser}${addUser.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}'
         ''');
 
       //CHMOD.
@@ -61,11 +62,10 @@ class CidController {
       //Removing.
       await shell.run('''
         ${Commands.cidShareDel} '$name' 
-        ''');
-      if (context.mounted) {
+        ''').then((value) {
         return handlers.message(
             context: context, message: "Done, your folder was removed.");
-      }
+      });
     } catch (e) {
       if (e.toString().contains('exitCode 1')) {
         return handlers.message(

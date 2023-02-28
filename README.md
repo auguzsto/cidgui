@@ -17,6 +17,13 @@ This is a project to make CID easier to use (https://cid-doc.github.io/). CID al
 ### Instale o CID.
 1. Faça instalação do CID. (https://cid-doc.github.io/#Installation)
 
+### Instale CID Flutter (Distribuíção baseada em Debian/Ubuntu)
+1. Instale cidgui (recomendado) ou execute o binário.
+
+$ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.0/cidgui_1.0.0_amd64.deb
+
+$ sudo dpkg -i cidgui_1.0.0_amd64.deb
+
 ### Editar arquivo sudoers.
 1. Será necessário alterar requisição de senha para usuários sudoers.
 
@@ -29,11 +36,26 @@ Imagem de exemplo:
 
 Reinicie a máquina após alteração.
 
-# Functions
+# Tasks
 - [x] Enter in domain.
-- [ ] Leave the domain.
+- [x] Leave the domain.
 - [x] Add folder shared.
+     - [x] Add user permission.
+     - [x] Add group permission.
+     - [ ] Vetos samba files.
+     - [x] Choose read or read and write.
 - [x] Remove folder shared.
+- [ ] Update folder shared.
+     - [ ] Add user permission.
+     - [ ] Add group permission
+     - [ ] Remove user permission.
+     - [ ] Remove group permission.
+- [ ] Database (SQLite)
+     - [ ] Entities: Folder, domain.
+- [ ] SQLite methods.
+     - [ ] Enter application data.
+     - [ ] See my domain.
+     - [ ] List folders shareds.
 
 
 ## Screenshots.

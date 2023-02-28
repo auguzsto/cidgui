@@ -147,6 +147,7 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                           name: controllers[0].text,
                           path: controllers[1].text,
                           addUser: controllers[2].text,
+                          addGroup: controllers[3].text,
                           rule: valuesRules,
                           context: context);
 
