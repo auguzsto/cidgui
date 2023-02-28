@@ -17,7 +17,7 @@ This is a project to make CID easier to use (https://cid-doc.github.io/). CID al
 ### Instale o CID.
 1. Faça instalação do CID. (https://cid-doc.github.io/#Installation)
 
-### Instale CIDGUI (Distribuíção baseada em Debian/Ubuntu)
+### Instale CID Flutter (Distribuíção baseada em Debian/Ubuntu)
 1. Instale cidgui (recomendado) ou execute o binário.
 
 $ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.0/cidgui_1.0.0_amd64.deb
