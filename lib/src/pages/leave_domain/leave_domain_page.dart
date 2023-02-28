@@ -1,3 +1,5 @@
+import 'package:cidgui/src/components/suffixicon_label.dart';
+import 'package:cidgui/src/constants/helps_dialogs.dart';
 import 'package:cidgui/src/constants/labels_icons.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
@@ -54,6 +56,11 @@ class _LeaveDomainPageState extends State<LeaveDomainPage> {
                     controller: controller[index],
                     obscureText: index == 1 ? true : false,
                     decoration: InputDecoration(
+                        suffixIcon: SuffixIconLabel(
+                          title: labels[index],
+                          content: HelpsDialogs.contentLeaveDomainPage[index],
+                          icon: LeaveDomainLabelsIcon.icons[index],
+                        ),
                         labelText: labels[index],
                         prefixIcon: Icon(
                           LeaveDomainLabelsIcon.icons[index],

@@ -1,4 +1,6 @@
+import 'package:cidgui/src/components/suffixicon_label.dart';
 import 'package:cidgui/src/constants/commands.dart';
+import 'package:cidgui/src/constants/helps_dialogs.dart';
 import 'package:cidgui/src/constants/labels_icons.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
@@ -70,8 +72,13 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                     child: TextFormField(
                       controller: controllers[index],
                       decoration: InputDecoration(
+                        suffixIcon: SuffixIconLabel(
+                          title: labels[index],
+                          content: HelpsDialogs.contentShareAddPage[index],
+                          icon: ShareAddLabelsIcon.icons[index],
+                        ),
                         labelText: labels[index],
-                        prefixIcon: ShareAddLabelsIcon.icons[index],
+                        prefixIcon: Icon(ShareAddLabelsIcon.icons[index]),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),

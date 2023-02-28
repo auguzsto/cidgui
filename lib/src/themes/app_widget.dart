@@ -15,8 +15,8 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'CID GUI ',
       debugShowCheckedModeBanner: false,
-      //home: const HomePage(), //Discomment to development.
-      home: const HomeCheckPage(), //Discomment to build.
+      home: const HomePage(), //Discomment to development.
+      //home: const HomeCheckPage(), //Discomment to build.
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.blue),
