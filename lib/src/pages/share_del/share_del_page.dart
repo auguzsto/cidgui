@@ -1,4 +1,5 @@
 import 'package:cidgui/src/controllers/cid_controller.dart';
+import 'package:cidgui/src/controllers/folder_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class ShareDelPage extends StatefulWidget {
 final controller = TextEditingController();
 final handlers = MessagesHandlers();
 final cid = CidController();
+final folderController = FolderController();
 bool isLoading = false;
 
 class _ShareDelPageState extends State<ShareDelPage> {
@@ -60,15 +62,17 @@ class _ShareDelPageState extends State<ShareDelPage> {
                 onPressed: () async {
                   if (controller.text.isEmpty) {
                     handlers.message(
-                        context: context,
-                        message: "Fill in the field.",
-                        isError: true);
+                      context: context,
+                      message: "Fill in the field.",
+                      isError: true,
+                    );
                   }
                   setState(() {
                     isLoading = true;
                   });
 
                   await cid.shareDel(controller.text, context);
+                  await folderController.deleteByName(controller.text);
 
                   setState(() {
                     isLoading = false;
@@ -76,12 +80,12 @@ class _ShareDelPageState extends State<ShareDelPage> {
                 },
                 icon: isLoading == true
                     ? const SizedBox(
-                      height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
                           color: Colors.white,
                         ),
-                    )
+                      )
                     : const Icon(Icons.folder_off),
                 label:
                     isLoading == true ? const Text("") : const Text("Remove"),

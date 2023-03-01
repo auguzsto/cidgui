@@ -50,9 +50,9 @@ Reinicie a máquina após alteração.
      - [ ] Add group permission
      - [ ] Remove user permission.
      - [ ] Remove group permission.
-- [ ] Database (SQLite)
+- [ ] Database
      - [ ] Entities: Folder, domain.
-- [ ] SQLite methods.
+- [ ] Database methods
      - [ ] Enter application data.
      - [ ] See my domain.
      - [ ] List folders shareds.
