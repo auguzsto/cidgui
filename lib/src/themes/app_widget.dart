@@ -3,6 +3,7 @@ import 'package:cidgui/src/pages/home/home_check_page.dart';
 import 'package:cidgui/src/pages/home/home_page.dart';
 import 'package:cidgui/src/pages/join_domain/join_domain_page.dart';
 import 'package:cidgui/src/pages/leave_domain/leave_domain_page.dart';
+import 'package:cidgui/src/pages/list_folders/list_folders_page.dart';
 import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
 import 'package:cidgui/src/pages/share_del/share_del_page.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class AppWidget extends StatelessWidget {
         RoutesPages.delFolderShared: (context) => const ShareDelPage(),
         RoutesPages.leaveDomain: (context) => LeaveDomainPage(),
         RoutesPages.checkDomain: (context) => const HomeCheckPage(),
+        RoutesPages.listFolders: (context) => const ListFoldersPages(),
       },
     );
   }

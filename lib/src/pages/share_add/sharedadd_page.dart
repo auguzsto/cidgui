@@ -45,6 +45,7 @@ bool isLoading = false;
 class _AddSharedFolderState extends State<AddSharedFolder> {
   @override
   Widget build(BuildContext context) {
+    folderController.all().then((value) => print(value));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Shared folder"),

@@ -12,5 +12,6 @@ abstract class MyMenuIcons {
     Icons.exit_to_app,
     Icons.folder_shared,
     Icons.folder_off,
+    Icons.list,
   ];
 }

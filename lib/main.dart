@@ -13,7 +13,7 @@ Future<void> main() async {
         singleInstance: true,
       ));
   await db.execute(
-    'CREATE TABLE IF NOT EXISTS folder (id INTEGER PRIMARY KEY, name TEXT, path TEXT)',
+    'CREATE TABLE IF NOT EXISTS folder (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, path TEXT)',
   );
 
   runApp(

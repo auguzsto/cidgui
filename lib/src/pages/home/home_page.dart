@@ -68,7 +68,12 @@ class _HomePageState extends State<HomePage> {
                               : index == 2
                                   ? Navigator.pushNamed(
                                       context, RoutesPages.delFolderShared)
-                                  : null;
+                                  : index == 3
+                                      ? Navigator.pushNamed(
+                                          context,
+                                          RoutesPages.listFolders,
+                                        )
+                                      : null;
                     },
 
                     //Containers

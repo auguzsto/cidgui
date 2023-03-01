@@ -3,6 +3,7 @@ abstract class MyMenu {
     'Leave Domain',
     'Add Folder Shared',
     'Remove Folder Shared',
+    'List Folders',
   ];
 }
 
