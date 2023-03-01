@@ -41,19 +41,34 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
                   Icons.folder,
                   color: Colors.blue,
                 ),
-                trailing: GestureDetector(
-                  onTap: () async {
-                    await cid.shareDel(folderModel.name!, context);
-                    await folderController.deleteByName(folderModel.name!);
-                  },
-                  child: const Icon(Icons.delete),
-                ),
+                trailing: _DeleteFolder(folderModel: folderModel),
                 title: Text(folderModel.name!),
               );
             },
           );
         },
       ),
+    );
+  }
+}
+
+//Delete folder.
+class _DeleteFolder extends StatelessWidget {
+  const _DeleteFolder({
+    super.key,
+    required this.folderModel,
+  });
+
+  final FolderModel folderModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        await cid.shareDel(folderModel.name!, context);
+        await folderController.deleteByName(folderModel.name!);
+      },
+      child: const Icon(Icons.delete),
     );
   }
 }
