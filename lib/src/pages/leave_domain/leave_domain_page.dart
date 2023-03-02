@@ -2,6 +2,8 @@ import 'package:cidgui/src/components/suffixicon_label.dart';
 import 'package:cidgui/src/constants/helps_dialogs.dart';
 import 'package:cidgui/src/constants/labels_icons.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
+import 'package:cidgui/src/controllers/domain_controller.dart';
+import 'package:cidgui/src/models/domain_model.dart';
 import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,8 @@ class LeaveDomainPage extends StatefulWidget {
   @override
   State<LeaveDomainPage> createState() => _LeaveDomainPageState();
 }
+
+Map<String, dynamic> map = {};
 
 class _LeaveDomainPageState extends State<LeaveDomainPage> {
   List labels = [
@@ -24,10 +28,29 @@ class _LeaveDomainPageState extends State<LeaveDomainPage> {
   ];
 
   final cid = CidController();
+  final domainController = DomainController();
   bool isLoading = false;
+
+  Future<void> getDomain() async {
+    return await domainController.all().then((value) {
+      map = {};
+      for (var element in value) {
+        map.addAll(element);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDomain();
+  }
+
+  final domainModel = DomainModel.fromMap(map);
 
   @override
   Widget build(BuildContext context) {
+    print(domainModel.name);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Leave domain"),
@@ -85,8 +108,8 @@ class _LeaveDomainPageState extends State<LeaveDomainPage> {
                       isLoading = true;
                     });
 
-                    await cid.leaveDomain(
-                        controller[0].text, controller[1].text, context);
+                    await cid.leaveDomain(controller[0].text,
+                        controller[1].text, domainModel.name!, context);
 
                     setState(() {
                       isLoading = false;

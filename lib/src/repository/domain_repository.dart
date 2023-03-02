@@ -2,35 +2,30 @@ import 'package:cidgui/src/constants/database_columns.dart';
 import 'package:cidgui/src/constants/database_tables.dart';
 import 'package:cidgui/src/services/database_services.dart';
 
-class FolderRepository {
-  //Add folder.
-  Future<void> add(String name, String path) async {
+class DomainRepository {
+  //Add domain
+  Future<void> add(String name) async {
     final db = await DatabaseServices().open();
 
-    await db.insert(DatabaseTables.folder, {
-      DatabaseColumnsFolder.name: name,
-      DatabaseColumnsFolder.path: path,
+    await db.insert(DatabaseTables.domain, {
+      DatabaseColumnsDomain.name: name,
     });
   }
 
-  //Delete by name folder.
+  //Remove domain
   Future<void> deleteByName(String name) async {
     final db = await DatabaseServices().open();
 
     await db.delete(
-      DatabaseTables.folder,
-      where: '${DatabaseColumnsFolder.name} = ?',
+      DatabaseTables.domain,
+      where: "${DatabaseColumnsDomain.name} = ?",
       whereArgs: [name],
     );
   }
 
-  //List all folders.
   Future<List<Map<String, dynamic>>> all() async {
     final db = await DatabaseServices().open();
 
-    return await db.query(DatabaseTables.folder, columns: [
-      DatabaseColumnsFolder.name,
-      DatabaseColumnsFolder.path,
-    ]);
+    return db.rawQuery("SELECT * FROM ${DatabaseTables.domain}");
   }
 }

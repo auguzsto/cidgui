@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cidgui/src/components/suffixicon_label.dart';
 import 'package:cidgui/src/constants/commands.dart';
 import 'package:cidgui/src/constants/helps_dialogs.dart';
 import 'package:cidgui/src/constants/labels_icons.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/controllers/folder_controller.dart';
+import 'package:cidgui/src/controllers/stdout_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +43,12 @@ List<TextEditingController> controllers = [
 final cid = CidController();
 final handlers = MessagesHandlers();
 final folderController = FolderController();
+final stdoutController = StdoutController();
 bool isLoading = false;
 
 class _AddSharedFolderState extends State<AddSharedFolder> {
   @override
   Widget build(BuildContext context) {
-    folderController.all().then((value) => print(value));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Shared folder"),
@@ -153,19 +156,16 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                         isLoading = true;
                       });
 
-                      await cid.shareAdd(
-                          name: controllers[0].text,
-                          path: controllers[1].text,
-                          addUser: controllers[2].text,
-                          addGroup: controllers[3].text,
-                          rule: valuesRules,
-                          context: context);
-
-                      //Insert in database.
-                      await folderController.add(
-                        controllers[0].text,
-                        controllers[1].text,
-                      );
+                      await cid
+                          .shareAdd(
+                              name: controllers[0].text,
+                              path: controllers[1].text,
+                              addUser: controllers[2].text,
+                              addGroup: controllers[3].text,
+                              rule: valuesRules,
+                              context: context)
+                          .whenComplete(() async => await folderController.add(
+                              controllers[0].text, controllers[1].text));
 
                       setState(() {
                         isLoading = false;

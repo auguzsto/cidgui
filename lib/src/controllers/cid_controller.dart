@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cidgui/src/constants/commands.dart';
 import 'package:cidgui/src/constants/routes.dart';
+import 'package:cidgui/src/controllers/domain_controller.dart';
 import 'package:cidgui/src/controllers/stdout_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
@@ -12,6 +13,7 @@ class CidController {
   final shell = Shell();
   final handlers = MessagesHandlers();
   final stdout = StdoutController();
+  final domainController = DomainController();
 
   //Add shared folder cid.
   Future shareAdd(
@@ -83,7 +85,15 @@ class CidController {
     try {
       await shell.run('''
         ${Commands.cidJoin} domain='$domain' user='$adminAccount' pass='$password'
-        ''');
+        ''').then((value) async {
+        //Conditions to insert data domain in database.
+        if (stdout.enterDomain(value)) {
+          await domainController.add(domain);
+        } else {
+          return handlers.message(
+              context: context, message: "Check that the fields are correct.");
+        }
+      });
       if (context.mounted) {
         Navigator.pushNamed(context, RoutesPages.checkDomain);
         return handlers.message(
@@ -106,12 +116,19 @@ class CidController {
     }
   }
 
-  Future leaveDomain(
-      String adminAccount, String password, BuildContext context) async {
+  //Leave domain
+  Future leaveDomain(String adminAccount, String password, String name,
+      BuildContext context) async {
     await shell.run('''
       ${Commands.cidLeave} user='$adminAccount' pass='$password'
-      ''').then((value) {
-      return Navigator.pushNamed(context, RoutesPages.checkDomain);
+      ''').then((result) async {
+      if (stdout.leaveDomain(result)) {
+        await domainController.deleteByName(name).whenComplete(
+            () => Navigator.pushNamed(context, RoutesPages.checkDomain));
+      } else {
+        return handlers.message(
+            context: context, message: "Error", isError: true);
+      }
     });
   }
 
