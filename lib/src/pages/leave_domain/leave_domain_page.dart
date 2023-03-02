@@ -14,8 +14,6 @@ class LeaveDomainPage extends StatefulWidget {
   State<LeaveDomainPage> createState() => _LeaveDomainPageState();
 }
 
-Map<String, dynamic> map = {};
-
 class _LeaveDomainPageState extends State<LeaveDomainPage> {
   List labels = [
     'Admin Account',
@@ -31,116 +29,115 @@ class _LeaveDomainPageState extends State<LeaveDomainPage> {
   final domainController = DomainController();
   bool isLoading = false;
 
-  Future<void> getDomain() async {
-    return await domainController.all().then((value) {
-      map = {};
-      for (var element in value) {
-        map.addAll(element);
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getDomain();
-  }
-
-  final domainModel = DomainModel.fromMap(map);
-
   @override
   Widget build(BuildContext context) {
-    print(domainModel.name);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Leave domain"),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Center(
-              child: Icon(
-                Icons.exit_to_app,
-                color: Colors.blue,
-                size: 150,
-              ),
-            ),
-
-            //Labels
-            Column(
-              children: List.generate(
-                labels.length,
-                (index) => Container(
-                  margin: const EdgeInsets.all(5),
-                  child: TextFormField(
-                    controller: controller[index],
-                    obscureText: index == 1 ? true : false,
-                    decoration: InputDecoration(
-                        suffixIcon: SuffixIconLabel(
-                          title: labels[index],
-                          content: HelpsDialogs.contentLeaveDomainPage[index],
-                          icon: LeaveDomainLabelsIcon.icons[index],
-                        ),
-                        labelText: labels[index],
-                        prefixIcon: Icon(
-                          LeaveDomainLabelsIcon.icons[index],
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        )),
-                  ),
+      body: FutureBuilder(
+          future: domainController.all(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
                 ),
-              ),
-            ),
+              );
+            }
 
-            //Button
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 65,
-              child: ElevatedButton.icon(
-                onPressed: () async {
-                  if (controller[0].text.isNotEmpty ||
-                      controller[1].text.isNotEmpty) {
-                    setState(() {
-                      isLoading = true;
-                    });
+            final domainModel = DomainModel.fromMap(snapshot.data!.last);
 
-                    await cid.leaveDomain(controller[0].text,
-                        controller[1].text, domainModel.name!, context);
+            return Container(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Center(
+                    child: Icon(
+                      Icons.exit_to_app,
+                      color: Colors.blue,
+                      size: 150,
+                    ),
+                  ),
 
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-
-                  if (context.mounted) {
-                    handlers.message(
-                      context: context,
-                      message: "Fill in all fields.",
-                      isError: true,
-                    );
-                  }
-                },
-                icon: isLoading == true
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
+                  //Labels
+                  Column(
+                    children: List.generate(
+                      labels.length,
+                      (index) => Container(
+                        margin: const EdgeInsets.all(5),
+                        child: TextFormField(
+                          controller: controller[index],
+                          obscureText: index == 1 ? true : false,
+                          decoration: InputDecoration(
+                              suffixIcon: SuffixIconLabel(
+                                title: labels[index],
+                                content:
+                                    HelpsDialogs.contentLeaveDomainPage[index],
+                                icon: LeaveDomainLabelsIcon.icons[index],
+                              ),
+                              labelText: labels[index],
+                              prefixIcon: Icon(
+                                LeaveDomainLabelsIcon.icons[index],
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              )),
                         ),
-                      )
-                    : const Icon(Icons.exit_to_app),
-                label: isLoading == true ? const Text("") : const Text("Leave"),
+                      ),
+                    ),
+                  ),
+
+                  //Button
+                  Container(
+                    padding: const EdgeInsets.all(5.0),
+                    height: 65,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        if (controller[0].text.isNotEmpty ||
+                            controller[1].text.isNotEmpty) {
+                          setState(() {
+                            isLoading = true;
+                          });
+
+                          await cid.leaveDomain(controller[0].text,
+                              controller[1].text, domainModel.name!, context);
+
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
+
+                        if (context.mounted) {
+                          handlers.message(
+                            context: context,
+                            message: "Fill in all fields.",
+                            isError: true,
+                          );
+                        }
+                      },
+                      icon: isLoading == true
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          : const Icon(Icons.exit_to_app),
+                      label: isLoading == true
+                          ? const Text("")
+                          : const Text("Leave"),
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 }
