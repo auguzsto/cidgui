@@ -156,16 +156,13 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
                         isLoading = true;
                       });
 
-                      await cid
-                          .shareAdd(
-                              name: controllers[0].text,
-                              path: controllers[1].text,
-                              addUser: controllers[2].text,
-                              addGroup: controllers[3].text,
-                              rule: valuesRules,
-                              context: context)
-                          .whenComplete(() async => await folderController.add(
-                              controllers[0].text, controllers[1].text));
+                      await cid.shareAdd(
+                          name: controllers[0].text,
+                          path: controllers[1].text,
+                          addUser: controllers[2].text,
+                          addGroup: controllers[3].text,
+                          rule: valuesRules,
+                          context: context);
 
                       setState(() {
                         isLoading = false;

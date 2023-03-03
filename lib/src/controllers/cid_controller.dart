@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cidgui/src/constants/commands.dart';
 import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/domain_controller.dart';
+import 'package:cidgui/src/controllers/folder_controller.dart';
 import 'package:cidgui/src/controllers/stdout_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
@@ -13,6 +14,7 @@ class CidController {
   final shell = Shell();
   final handlers = MessagesHandlers();
   final stdout = StdoutController();
+  final folderController = FolderController();
   final domainController = DomainController();
 
   //Add shared folder cid.
@@ -27,7 +29,11 @@ class CidController {
       //Sharing
       final result = await shell.run('''
         ${Commands.cidShareAdd} name='$name' path='$path' rule='${addUser!.isNotEmpty ? Commands.ruleAddUser : addGroup!.isNotEmpty ? Commands.ruleAddGroup : Commands.ruleAddUser}${addUser.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}'
-        ''');
+        ''').then((result) async {
+        if (stdout.added(result)) {
+          await folderController.add(name, path);
+        }
+      });
 
       //CHMOD.
       await shell.run('''
