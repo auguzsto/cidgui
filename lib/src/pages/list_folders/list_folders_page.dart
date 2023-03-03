@@ -12,16 +12,22 @@ class ListFoldersPages extends StatefulWidget {
 
 final folderController = FolderController();
 final cid = CidController();
+bool isSearch = false;
+String myHintText = "Search folder by name";
+final controller = TextEditingController();
 
 class _ListFoldersPagesState extends State<ListFoldersPages> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("List folders"),
       ),
       body: FutureBuilder(
-        future: folderController.all(),
+        future: isSearch == false
+            ? folderController.all()
+            : folderController.getByName(controller.text),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -47,6 +53,54 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
             },
           );
         },
+      ),
+
+      //Labels search.
+      bottomSheet: Container(
+        decoration: const BoxDecoration(
+          color: Colors.blue,
+        ),
+        padding: const EdgeInsets.all(18),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: size.width / 1.1,
+              child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    value.isEmpty ? isSearch = false : isSearch = true;
+                  });
+                },
+                controller: controller,
+                autofocus: false,
+                showCursor: true,
+                cursorColor: Colors.white,
+                style: const TextStyle(fontSize: 22, color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: myHintText,
+                  hintStyle: const TextStyle(
+                    color: Colors.white,
+                  ),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                  ),
+                  suffixIcon: MouseRegion(
+                    cursor: MaterialStateMouseCursor.clickable,
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: size.width / 20,
+                    ),
+                  ),
+                  isDense: true,
+                  disabledBorder: InputBorder.none,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

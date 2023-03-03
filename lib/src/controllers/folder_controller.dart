@@ -17,4 +17,9 @@ class FolderController {
   Future<List<Map<String, dynamic>>> all() async {
     return folderRepository.all();
   }
+
+  //Lists folders
+  Future<List<Map<String, dynamic>>> getByName(String name) async {
+    return folderRepository.getByName(name);
+  }
 }

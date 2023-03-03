@@ -33,4 +33,11 @@ class FolderRepository {
       DatabaseColumnsFolder.path,
     ]);
   }
+
+  Future<List<Map<String, dynamic>>> getByName(String name) async {
+    final db = await DatabaseServices().open();
+
+    return db.rawQuery(
+        "SELECT * FROM ${DatabaseTables.folder} WHERE name LIKE '%$name%'");
+  }
 }
