@@ -72,19 +72,20 @@ class _LeaveDomainPageState extends State<LeaveDomainPage> {
                           controller: controller[index],
                           obscureText: index == 1 ? true : false,
                           decoration: InputDecoration(
-                              suffixIcon: SuffixIconLabel(
-                                title: labels[index],
-                                content:
-                                    HelpsDialogs.contentLeaveDomainPage[index],
-                                icon: LeaveDomainLabelsIcon.icons[index],
-                              ),
-                              labelText: labels[index],
-                              prefixIcon: Icon(
-                                LeaveDomainLabelsIcon.icons[index],
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              )),
+                            suffixIcon: SuffixIconLabel(
+                              title: labels[index],
+                              content:
+                                  HelpsDialogs.contentLeaveDomainPage[index],
+                              icon: LeaveDomainLabelsIcon.icons[index],
+                            ),
+                            labelText: labels[index],
+                            prefixIcon: Icon(
+                              LeaveDomainLabelsIcon.icons[index],
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
                         ),
                       ),
                     ),
