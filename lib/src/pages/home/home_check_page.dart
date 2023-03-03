@@ -48,7 +48,7 @@ class _HomeCheckPageState extends State<HomeCheckPage> {
             });
           }
 
-          //Page info to enter domain.
+          //Widget info to enter domain.
           if (snapshot.data!.isEmpty) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
