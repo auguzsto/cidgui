@@ -50,30 +50,29 @@ Reinicie a máquina após alteração.
      - [ ] Add group permission
      - [ ] Remove user permission.
      - [ ] Remove group permission.
-- [ ] Database
+- [x] Database
      - [ ] Entities: Folder, domain.
-- [ ] Database methods
-     - [ ] Enter application data.
-     - [ ] See my domain.
-     - [ ] List folders shareds.
+- [x] Database methods
+     - [x] See my domain.
+     - [x] List folders shared.
 
 
 ## Screenshots.
 
 ### Check domain screen.
-<div align="center"><img src="https://i.imgur.com/LpTd58r.png"></div>
+<div align="center"><img src="https://i.imgur.com/jrVV3Dg.png"></div>
 
 ### Home screen.
-<div align="center"><img src="https://i.imgur.com/YQeuQ22.png"></div>
+<div align="center"><img src="https://i.imgur.com/dAOyAVj.png"></div>
 
 ### Enter domain screen.
-<div align="center"><img src="https://i.imgur.com/81gGv4X.png"></div>
+<div align="center"><img src="https://i.imgur.com/s93Lbp2.png"></div>
 
 ## Leave domain screen.
-<div align="center"><img src="https://i.imgur.com/qezk77T.png"></div>
+<div align="center"><img src="https://i.imgur.com/uzZybtX.png"></div>
 
 ### Shared folder screen.
-<div align="center"><img src="https://i.imgur.com/I8BWjMj.png"></div>
+<div align="center"><img src="https://i.imgur.com/YLK1ouw.png"></div>
 
-### Remove folder screen.
-<div align="center"><img src="https://i.imgur.com/BqwSbuM.png"></div>
+### List folders screen.
+<div align="center"><img src="https://i.imgur.com/bjZNUNG.png"></div>
