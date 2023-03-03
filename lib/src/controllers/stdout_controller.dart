@@ -27,4 +27,11 @@ class StdoutController {
   bool leaveDomain(List<ProcessResult> result) {
     return result[0].stdout.toString().contains(StdoutCid.leaveDomain);
   }
+
+  //Stdout belong to a domain.
+  bool requiredDomain(List<ProcessResult> result) {
+    return result[0]
+        .toString()
+        .contains("This command requires the station to belong to a domain!");
+  }
 }

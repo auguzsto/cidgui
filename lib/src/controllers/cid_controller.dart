@@ -119,17 +119,27 @@ class CidController {
   //Leave domain
   Future leaveDomain(String adminAccount, String password, String name,
       BuildContext context) async {
-    await shell.run('''
+    try {
+      await shell.run('''
       ${Commands.cidLeave} user='$adminAccount' pass='$password'
-      ''').then((result) async {
-      if (stdout.leaveDomain(result)) {
-        await domainController.deleteByName(name).whenComplete(
-            () => Navigator.pushNamed(context, RoutesPages.checkDomain));
-      } else {
-        return handlers.message(
-            context: context, message: "Error", isError: true);
-      }
-    });
+      ''').then(
+        (result) async {
+          if (stdout.leaveDomain(result)) {
+            await domainController.deleteByName(name).whenComplete(
+                () => Navigator.pushNamed(context, RoutesPages.checkDomain));
+          }
+        },
+      );
+    } catch (e) {
+      await domainController.deleteByName(name).whenComplete(() {
+        handlers.message(
+          context: context,
+          message: "You don't are part of a domain.",
+          isError: true,
+        );
+        Navigator.pushNamed(context, RoutesPages.checkDomain);
+      });
+    }
   }
 
   //Check domain
