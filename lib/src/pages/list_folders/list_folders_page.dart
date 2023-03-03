@@ -13,7 +13,6 @@ class ListFoldersPages extends StatefulWidget {
 final folderController = FolderController();
 final cid = CidController();
 bool isSearch = false;
-String myHintText = "Search folder by name";
 final controller = TextEditingController();
 
 class _ListFoldersPagesState extends State<ListFoldersPages> {
@@ -79,7 +78,7 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
                 cursorColor: Colors.white,
                 style: const TextStyle(fontSize: 22, color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: myHintText,
+                  hintText: "Search folder by name",
                   hintStyle: const TextStyle(
                     color: Colors.white,
                   ),
@@ -107,7 +106,7 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
 }
 
 //Delete folder.
-class _DeleteFolder extends StatelessWidget {
+class _DeleteFolder extends StatefulWidget {
   const _DeleteFolder({
     super.key,
     required this.folderModel,
@@ -116,11 +115,15 @@ class _DeleteFolder extends StatelessWidget {
   final FolderModel folderModel;
 
   @override
+  State<_DeleteFolder> createState() => _DeleteFolderState();
+}
+
+class _DeleteFolderState extends State<_DeleteFolder> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await cid.shareDel(folderModel.name!, context);
-        await folderController.deleteByName(folderModel.name!);
+        await cid.shareDel(widget.folderModel.name!, context);
       },
       child: const Icon(Icons.delete),
     );

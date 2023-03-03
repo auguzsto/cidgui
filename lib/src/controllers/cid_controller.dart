@@ -71,6 +71,7 @@ class CidController {
       await shell.run('''
         ${Commands.cidShareDel} '$name' 
         ''').then((value) {
+        folderController.deleteByName(name);
         return handlers.message(
             context: context, message: "Done, your folder was removed.");
       });
