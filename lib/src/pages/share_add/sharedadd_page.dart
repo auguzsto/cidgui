@@ -166,6 +166,10 @@ class _AddSharedFolderState extends State<AddSharedFolder> {
 
                       setState(() {
                         isLoading = false;
+                        controllers[0].text = "";
+                        controllers[1].text = "";
+                        controllers[2].text = "";
+                        controllers[3].text = "";
                       });
                     },
                   );
