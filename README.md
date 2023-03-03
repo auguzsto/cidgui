@@ -51,7 +51,7 @@ Reinicie a máquina após alteração.
      - [ ] Remove user permission.
      - [ ] Remove group permission.
 - [x] Database
-     - [ ] Entities: Folder, domain.
+     - [x] Entities: Folder, domain.
 - [x] Database methods
      - [x] See my domain.
      - [x] List folders shared.
