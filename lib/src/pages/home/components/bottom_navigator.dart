@@ -29,11 +29,8 @@ class BottomNavigator extends StatelessWidget {
                               context, RoutesPages.addFolderShared)
                           : index == 2
                               ? Navigator.pushNamed(
-                                  context, RoutesPages.delFolderShared)
-                              : index == 3
-                                  ? Navigator.pushNamed(
-                                      context, RoutesPages.listFolders)
-                                  : null;
+                                  context, RoutesPages.listFolders)
+                              : null;
                 },
                 child: Container(
                   padding: const EdgeInsets.all(12),

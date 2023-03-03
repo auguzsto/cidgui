@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:cidgui/src/constants/commands.dart';
 import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/domain_controller.dart';
 import 'package:cidgui/src/controllers/folder_controller.dart';
 import 'package:cidgui/src/controllers/stdout_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
-import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
 
@@ -29,34 +26,37 @@ class CidController {
       //Sharing
       final result = await shell.run('''
         ${Commands.cidShareAdd} name='$name' path='$path' rule='${addUser!.isNotEmpty ? Commands.ruleAddUser : addGroup!.isNotEmpty ? Commands.ruleAddGroup : Commands.ruleAddUser}${addUser.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}'
-        ''').then((result) async {
-        if (stdout.added(result)) {
-          await folderController.add(name, path);
-        }
-      });
+        ''').then(
+        (result) async {
+          if (stdout.added(result)) {
+            await folderController.add(name, path);
 
-      //CHMOD.
-      await shell.run('''
+            //CHMOD.
+            await shell.run('''
         ${Commands.chmodDefault} '$path'
         ''');
 
-      //Group Owner.
-      await shell.run('''
+            //Group Owner.
+            await shell.run('''
         ${Commands.groupOwner} '$path'
         ''');
 
-      //If folder was added.
-      if (stdout.added(result) && context.mounted) {
-        return handlers.message(
-            context: context, message: "Done, your folder as shared.");
-      }
+            //If folder was added.
+            if (stdout.added(result) && context.mounted) {
+              return handlers.message(
+                  context: context, message: "Done, your folder as shared.");
+            }
 
-      //If folder was updated.
-      if (stdout.updated(result) && context.mounted) {
-        return handlers.message(
-            context: context, message: "Done, your folder as updated.");
-      }
+            //If folder was updated.
+            if (stdout.updated(result) && context.mounted) {
+              return handlers.message(
+                  context: context, message: "Done, your folder as updated.");
+            }
+          }
+        },
+      );
     } catch (e) {
+      print(e);
       return handlers.message(
           context: context,
           message: "Error. Check the entered data.",
