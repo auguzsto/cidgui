@@ -13,7 +13,7 @@ English.
 
 This is a project to make CID easier to use (https://cid-doc.github.io/). CID already has a version with a graphical interface built in GTK, but it lacks some features. I use CID to administer a file server on Linux at my current job, I made some modifications and built CID-GUI-WEB (https://github.com/auguzsto/cid-gui) in PHP. This version of CID based on Flutter aims to build a native GUI for all Linux distributions.
 
-## Installation (Instalação).
+# Installation (Instalação).
 # Instale o CID.
 1. Faça instalação do CID. (https://cid-doc.github.io/#Installation)
 
