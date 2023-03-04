@@ -14,10 +14,10 @@ English.
 This is a project to make CID easier to use (https://cid-doc.github.io/). CID already has a version with a graphical interface built in GTK, but it lacks some features. I use CID to administer a file server on Linux at my current job, I made some modifications and built CID-GUI-WEB (https://github.com/auguzsto/cid-gui) in PHP. This version of CID based on Flutter aims to build a native GUI for all Linux distributions.
 
 ## Installation (Instalação).
-### Instale o CID.
+# Instale o CID.
 1. Faça instalação do CID. (https://cid-doc.github.io/#Installation)
 
-### Instale CID Flutter
+# Instale CID Flutter
 1. Baixe o release e execute o binário cidgui.
 
 $ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.4/cidgui-1.4-0.zip
@@ -26,7 +26,7 @@ $ sudo apt-get -y install libsqlite3-0 libsqlite3-dev
 
 Descompacte o arquivo e execute o cidgui.
 
-### Editar arquivo sudoers.
+## Editar arquivo sudoers.
 1. Será necessário alterar requisição de senha para usuários sudoers.
 
 $ sudo nano /etc/sudoers
@@ -37,6 +37,14 @@ Imagem de exemplo:
 <div align="center"><img src="https://i.imgur.com/6B7RcMR.png"></div>
 
 Reinicie a máquina após alteração.
+
+# System tested.
+- [x] Debian 11
+- [x] Linux Mint: Vera
+- [ ] Ubuntu 22
+- [ ] OpenSUSE
+- [ ] Fedora
+
 
 # Tasks
 - [x] Enter in domain.
