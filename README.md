@@ -20,7 +20,9 @@ This is a project to make CID easier to use (https://cid-doc.github.io/). CID al
 ### Instale CID Flutter (Distribuíção baseada em Debian/Ubuntu)
 1. Instale cidgui (recomendado) ou execute o binário.
 
-$ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.0/cidgui_1.0.0_amd64.deb
+$ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.4/cidgui_1.4.0_amd64.deb
+
+$ sudo apt-get -y install libsqlite3-0 libsqlite3-dev 
 
 $ sudo dpkg -i cidgui_1.0.0_amd64.deb
 
