@@ -40,7 +40,7 @@ Reinicie a máquina após alteração.
 
 # System tested.
 - [x] Debian 11
-- [x] Linux Mint: Vera
+- [ ] Linux Mint: Vera
 - [ ] Ubuntu 22
 - [ ] OpenSUSE
 - [ ] Fedora
