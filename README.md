@@ -17,14 +17,14 @@ This is a project to make CID easier to use (https://cid-doc.github.io/). CID al
 ### Instale o CID.
 1. Faça instalação do CID. (https://cid-doc.github.io/#Installation)
 
-### Instale CID Flutter (Distribuíção baseada em Debian/Ubuntu)
-1. Instale cidgui (recomendado) ou execute o binário.
+### Instale CID Flutter
+1. Baixe o release e execute o binário cidgui.
 
-$ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.4/cidgui_1.4.0_amd64.deb
+$ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.4/cidgui-1.4-0.zip
 
 $ sudo apt-get -y install libsqlite3-0 libsqlite3-dev 
 
-$ sudo dpkg -i cidgui_1.0.0_amd64.deb
+Descompacte o arquivo e execute o cidgui.
 
 ### Editar arquivo sudoers.
 1. Será necessário alterar requisição de senha para usuários sudoers.
