@@ -13,6 +13,7 @@ class CidController {
   final stdout = StdoutController();
   final folderController = FolderController();
   final domainController = DomainController();
+  String error = "";
 
   //Add shared folder cid.
   Future shareAdd(
@@ -24,22 +25,29 @@ class CidController {
       required BuildContext context}) async {
     try {
       //Sharing
-      final result = await shell.run('''
+       await shell.run('''
         ${Commands.cidShareAdd} name='$name' path='$path' rule='${addUser!.isNotEmpty ? Commands.ruleAddUser : addGroup!.isNotEmpty ? Commands.ruleAddGroup : Commands.ruleAddUser}${addUser.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}'
         ''').then(
         (result) async {
           if (stdout.added(result)) {
             await folderController.add(name, path);
+            
+            //Group files administrator.
+            await shell.run(
+              '''
+              ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddGroup}domain admins${Commands.ruleReadAndWrite}'
+              '''
+            );
 
             //CHMOD.
             await shell.run('''
-        ${Commands.chmodDefault} '$path'
-        ''');
+            ${Commands.chmodDefault} '$path'
+            ''');
 
             //Group Owner.
             await shell.run('''
-        ${Commands.groupOwner} '$path'
-        ''');
+            ${Commands.groupOwner} '$path'
+            ''');
 
             //If folder was added.
             if (stdout.added(result) && context.mounted) {

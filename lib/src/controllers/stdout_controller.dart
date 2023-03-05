@@ -34,4 +34,9 @@ class StdoutController {
         .toString()
         .contains("This command requires the station to belong to a domain!");
   }
+
+  //Stdout user invalid.
+  bool userInvalid(List<ProcessResult> result) {
+    return result[0].toString().contains("invalid account");
+  }
 }

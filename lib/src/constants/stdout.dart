@@ -4,4 +4,5 @@ abstract class StdoutCid {
   static const String computers = "computers";
   static const String enterDomain = "Welcome to the";
   static const String leaveDomain = "Reboot";
+  static const String userInvalid = "invalid account";
 }
