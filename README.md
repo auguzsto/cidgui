@@ -36,6 +36,7 @@ Imagem de exemplo:
 
 Reinicie a máquina após alteração.
 
+## Abra o cidgui
 Após a máquina reiniciar, descompacte o arquivo e execute o cidgui.
 
 # System tested.
