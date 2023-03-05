@@ -1,5 +1,6 @@
 abstract class Commands {
   static const String cidShareAdd = 'sudo cid share add mode=common';
+  static const String cidImportAccount = 'sudo cid account add';
   static const String cidShareDel = 'sudo cid share del';
   static const String cidJoin = 'sudo cid join';
   static const String cidLeave = 'sudo cid leave';

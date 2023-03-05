@@ -1,4 +1,5 @@
 import 'package:cidgui/src/constants/commands.dart';
+import 'package:cidgui/src/constants/groupmanager.dart';
 import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/domain_controller.dart';
 import 'package:cidgui/src/controllers/folder_controller.dart';
@@ -35,7 +36,7 @@ class CidController {
             //Group files administrator.
             await shell.run(
               '''
-              ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddGroup}domain admins${Commands.ruleReadAndWrite}'
+              ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddGroup}${GroupManager.main}${Commands.ruleReadAndWrite}'
               '''
             );
 
@@ -101,13 +102,12 @@ class CidController {
       await shell.run('''
         ${Commands.cidJoin} domain='$domain' user='$adminAccount' pass='$password'
         ''').then((value) async {
-        //Conditions to insert data domain in database.
-        if (stdout.enterDomain(value)) {
-          await domainController.add(domain);
-        } else {
-          return handlers.message(
-              context: context, message: "Check that the fields are correct.");
-        }
+          if (stdout.enterDomain(value)) {
+            await domainController.add(domain);
+          } else {
+            return handlers.message(
+                context: context, message: "Check that the fields are correct.");
+          }
       });
       if (context.mounted) {
         Navigator.pushNamed(context, RoutesPages.checkDomain);
