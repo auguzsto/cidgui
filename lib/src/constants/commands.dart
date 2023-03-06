@@ -9,7 +9,9 @@ abstract class Commands {
   static const String addUserDefault = 'everyone';
   static const String addGroupDefault = 'everyone';
   static const String ruleAddUser = '+u:';
+  static const String ruleRemoveUser = '-u:';
   static const String ruleAddGroup = '+g:';
+  static const String ruleRemoveGroup = '-g:';
   static const String ruleOnlyRead = ':r';
   static const String ruleReadAndWrite = ':f';
   static const String cidStatus = 'sudo cid status';

@@ -6,6 +6,7 @@ import 'package:cidgui/src/pages/leave_domain/leave_domain_page.dart';
 import 'package:cidgui/src/pages/list_folders/list_folders_page.dart';
 import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
 import 'package:cidgui/src/pages/share_del/share_del_page.dart';
+import 'package:cidgui/src/pages/share_update/share_update_page.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -16,8 +17,8 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'CID GUI ',
       debugShowCheckedModeBanner: false,
-      //home: const HomePage(), //Discomment to development.
-      home: const HomeCheckPage(), //Discomment to build.
+      home: const HomePage(), //Discomment to development.
+      //home: const HomeCheckPage(), //Discomment to build.
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.blue),
@@ -40,6 +41,7 @@ class AppWidget extends StatelessWidget {
         RoutesPages.leaveDomain: (context) => LeaveDomainPage(),
         RoutesPages.checkDomain: (context) => const HomeCheckPage(),
         RoutesPages.listFolders: (context) => const ListFoldersPages(),
+        RoutesPages.updateFolder: (context) => ShareUpdatePage()
       },
     );
   }

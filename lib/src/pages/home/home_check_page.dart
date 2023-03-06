@@ -1,4 +1,4 @@
-import 'package:cidgui/src/components/button_botton_navigator.dart';
+import 'package:cidgui/src/components/button_bottom_navigator.dart';
 import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/controllers/domain_controller.dart';
@@ -74,7 +74,14 @@ class _HomeCheckPageState extends State<HomeCheckPage> {
           ));
         },
       ),
-      bottomNavigationBar: const ButtonBottonNavigator(),
+      bottomNavigationBar: ButtonBottomNavigator(
+          icon: const Icon(
+            Icons.login,
+            color: Colors.white,
+            size: 32,
+          ),
+          onTap: () => Navigator.pushNamed(context, RoutesPages.joinDomain),
+          text: "Sign in to the domain"),
     );
   }
 }

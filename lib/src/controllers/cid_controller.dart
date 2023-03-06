@@ -26,19 +26,17 @@ class CidController {
       required BuildContext context}) async {
     try {
       //Sharing
-       await shell.run('''
+      await shell.run('''
         ${Commands.cidShareAdd} name='$name' path='$path' rule='${addUser!.isNotEmpty ? Commands.ruleAddUser : addGroup!.isNotEmpty ? Commands.ruleAddGroup : Commands.ruleAddUser}${addUser.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${rule ?? Commands.ruleOnlyRead}'
         ''').then(
         (result) async {
           if (stdout.added(result)) {
             await folderController.add(name, path);
-            
+
             //Group files administrator.
-            await shell.run(
-              '''
+            await shell.run('''
               ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddGroup}${GroupManager.main}${Commands.ruleReadAndWrite}'
-              '''
-            );
+              ''');
 
             //CHMOD.
             await shell.run('''
@@ -73,6 +71,22 @@ class CidController {
     }
   }
 
+  //Update shared
+  Future shareUpdate(
+      {required String name,
+      required String path,
+      String? operation,
+      String? addUser,
+      String? addGroup,
+      String? rule,
+      required BuildContext context}) async {
+    try {
+      await shell.run('''
+        ${Commands.cidShareAdd} name='$name' path='$path' rule='${operation! != '+u:' ? Commands.ruleRemoveUser : Commands.ruleAddUser}${addUser!.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${operation != '+u:' ? "" : rule ?? Commands.ruleOnlyRead}'
+        ''');
+    } catch (e) {}
+  }
+
   //Delete shared folder cid.
   Future shareDel(String name, BuildContext context) async {
     try {
@@ -102,12 +116,12 @@ class CidController {
       await shell.run('''
         ${Commands.cidJoin} domain='$domain' user='$adminAccount' pass='$password'
         ''').then((value) async {
-          if (stdout.enterDomain(value)) {
-            await domainController.add(domain);
-          } else {
-            return handlers.message(
-                context: context, message: "Check that the fields are correct.");
-          }
+        if (stdout.enterDomain(value)) {
+          await domainController.add(domain);
+        } else {
+          return handlers.message(
+              context: context, message: "Check that the fields are correct.");
+        }
       });
       if (context.mounted) {
         Navigator.pushNamed(context, RoutesPages.checkDomain);

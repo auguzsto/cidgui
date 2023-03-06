@@ -6,4 +6,5 @@ abstract class RoutesPages {
   static const String leaveDomain = '/leaveDomain';
   static const String delFolderShared = '/delFolderShared';
   static const String listFolders = '/listFolders';
+  static const String updateFolder = '/updateFolder';
 }

@@ -1,6 +1,7 @@
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/controllers/folder_controller.dart';
 import 'package:cidgui/src/models/folder_model.dart';
+import 'package:cidgui/src/pages/share_update/share_update_page.dart';
 import 'package:flutter/material.dart';
 
 class ListFoldersPages extends StatefulWidget {
@@ -47,7 +48,17 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
                   color: Colors.blue,
                 ),
                 trailing: _DeleteFolder(folderModel: folderModel),
-                title: Text(folderModel.name!),
+                title: MouseRegion(
+                  cursor: MaterialStateMouseCursor.clickable,
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ShareUpdatePage(
+                        folder: folderModel,
+                      ),
+                    )),
+                    child: Text(folderModel.name!),
+                  ),
+                ),
               );
             },
           );
