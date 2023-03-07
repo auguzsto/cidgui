@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cidgui/src/constants/commands.dart';
 import 'package:cidgui/src/constants/groupmanager.dart';
 import 'package:cidgui/src/constants/routes.dart';
@@ -8,8 +10,10 @@ import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
 
+
 class CidController {
-  final shell = Shell();
+   
+  final shell = Shell(throwOnError: false);
   final handlers = MessagesHandlers();
   final stdout = StdoutController();
   final folderController = FolderController();
@@ -80,11 +84,16 @@ class CidController {
       String? addGroup,
       String? rule,
       required BuildContext context}) async {
+     
     try {
       await shell.run('''
-        ${Commands.cidShareAdd} name='$name' path='$path' rule='${operation! != '+u:' ? Commands.ruleRemoveUser : Commands.ruleAddUser}${addUser!.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${operation != '+u:' ? "" : rule ?? Commands.ruleOnlyRead}'
-        ''');
-    } catch (e) {}
+      ${Commands.cidShareAdd} name='$name' path='$path' rule='${operation! != Commands.ruleAddUser ? Commands.ruleRemoveUser : Commands.ruleAddUser}${addUser!.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${operation != Commands.ruleAddUser ? "" : rule ?? Commands.ruleOnlyRead}'
+      ''',);
+    } catch (e) {
+      if(context.mounted) {
+        return handlers.message(context: context, message: "Error", isError: true);
+      }
+    }
   }
 
   //Delete shared folder cid.
