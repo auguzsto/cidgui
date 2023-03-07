@@ -10,9 +10,7 @@ import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
 
-
 class CidController {
-   
   final shell = Shell(throwOnError: false);
   final handlers = MessagesHandlers();
   final stdout = StdoutController();
@@ -84,14 +82,24 @@ class CidController {
       String? addGroup,
       String? rule,
       required BuildContext context}) async {
-     
     try {
-      await shell.run('''
+      await shell.run(
+        '''
       ${Commands.cidShareAdd} name='$name' path='$path' rule='${operation! != Commands.ruleAddUser ? Commands.ruleRemoveUser : Commands.ruleAddUser}${addUser!.isNotEmpty ? addUser : addGroup!.isNotEmpty ? addGroup : addUser.isEmpty ? Commands.addUserDefault : addGroup.isEmpty ? Commands.addGroupDefault : Commands.addUserDefault}${operation != Commands.ruleAddUser ? "" : rule ?? Commands.ruleOnlyRead}'
-      ''',);
+      ''',
+      ).then((result) {
+        if (stdout.updated(result)) {
+          return handlers.message(
+              context: context, message: "Done! Shared updated");
+        }
+      });
     } catch (e) {
-      if(context.mounted) {
-        return handlers.message(context: context, message: "Error", isError: true);
+      if (context.mounted) {
+        return handlers.message(
+          context: context,
+          message: "Check that the data entered in the fields is correct.",
+          isError: true,
+        );
       }
     }
   }

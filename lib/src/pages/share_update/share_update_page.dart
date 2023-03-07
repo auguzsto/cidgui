@@ -90,7 +90,7 @@ class _ShareUpdatePageState extends State<ShareUpdatePage> {
                                 value: selectedValuesRulesUsers,
                                 hint: Row(
                                   children: [
-                                    Icon(Icons.person),
+                                    const Icon(Icons.person),
                                     Text(operationRulesUsersAndGroups.first)
                                   ],
                                 ),
@@ -179,7 +179,7 @@ class _ShareUpdatePageState extends State<ShareUpdatePage> {
         ],
       ),
 
-      //Buttom
+      //Button
       bottomSheet: ButtonBottomNavigator(
         icon: isLoading == true
             ? const Center(
