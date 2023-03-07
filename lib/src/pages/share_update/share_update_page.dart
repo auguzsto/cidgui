@@ -194,23 +194,25 @@ class _ShareUpdatePageState extends State<ShareUpdatePage> {
                 color: Colors.white,
                 size: 32,
               ),
-        onTap: () async {
-          setState(() {
-            isLoading = true;
-          });
+        onTap: isLoading == false
+            ? () async {
+                setState(() {
+                  isLoading = true;
+                });
 
-          await cid.shareUpdate(
-              name: widget.folder!.name!,
-              path: widget.folder!.path!,
-              addUser: controller[2].text,
-              operation: commandOperation,
-              rule: valuesRules,
-              context: context);
+                await cid.shareUpdate(
+                    name: widget.folder!.name!,
+                    path: widget.folder!.path!,
+                    addUser: controller[2].text,
+                    operation: commandOperation,
+                    rule: valuesRules,
+                    context: context);
 
-          setState(() {
-            isLoading = false;
-          });
-        },
+                setState(() {
+                  isLoading = false;
+                });
+              }
+            : () {},
         text: "Update",
       ),
     );

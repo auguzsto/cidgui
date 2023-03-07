@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
 
 class CidController {
-  final shell = Shell(throwOnError: false);
+  final shell = Shell();
   final handlers = MessagesHandlers();
   final stdout = StdoutController();
   final folderController = FolderController();
