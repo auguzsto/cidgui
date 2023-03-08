@@ -2,6 +2,7 @@ import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/controllers/folder_controller.dart';
 import 'package:cidgui/src/models/folder_model.dart';
 import 'package:cidgui/src/pages/share_update/share_update_page.dart';
+import 'package:cidgui/src/services/util_services.dart';
 import 'package:flutter/material.dart';
 
 class ListFoldersPages extends StatefulWidget {
@@ -13,8 +14,9 @@ class ListFoldersPages extends StatefulWidget {
 
 final folderController = FolderController();
 final cid = CidController();
-bool isSearch = false;
 final controller = TextEditingController();
+final utilService = UtilService();
+bool isSearch = false;
 
 class _ListFoldersPagesState extends State<ListFoldersPages> {
   @override
@@ -35,7 +37,7 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
             );
           }
 
-          //List
+          //List of the folders shared.
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
@@ -47,15 +49,19 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
                   Icons.folder,
                   color: Colors.blue,
                 ),
-                trailing: _DeleteFolder(folderModel: folderModel),
+                trailing: MouseRegion(
+                  cursor: MaterialStateMouseCursor.clickable,
+                  child: _DeleteFolder(folderModel: folderModel),
+                ),
                 title: MouseRegion(
                   cursor: MaterialStateMouseCursor.clickable,
                   child: GestureDetector(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ShareUpdatePage(
+                    onTap: () => UtilService.routePage(
+                      context,
+                      ShareUpdatePage(
                         folder: folderModel,
                       ),
-                    )),
+                    ),
                     child: Text(folderModel.name!),
                   ),
                 ),

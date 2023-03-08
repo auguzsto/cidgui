@@ -1,8 +1,5 @@
-import 'package:cidgui/src/components/button_bottom_navigator.dart';
 import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
-import 'package:cidgui/src/controllers/domain_controller.dart';
-import 'package:cidgui/src/models/domain_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeCheckPage extends StatefulWidget {
@@ -13,7 +10,6 @@ class HomeCheckPage extends StatefulWidget {
 }
 
 final cid = CidController();
-final domainController = DomainController();
 
 class _HomeCheckPageState extends State<HomeCheckPage> {
   @override
@@ -23,7 +19,7 @@ class _HomeCheckPageState extends State<HomeCheckPage> {
         title: const Text("Checking domain"),
       ),
       body: FutureBuilder(
-        future: domainController.all(),
+        future: cid.checkDomain(context),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -38,50 +34,36 @@ class _HomeCheckPageState extends State<HomeCheckPage> {
             );
           }
 
-          //Go to home page.
-          if (snapshot.data!.isNotEmpty) {
-            domainController.all().then((value) async {
-              await Future.delayed(
-                Duration.zero,
-                () => Navigator.pushNamed(context, RoutesPages.home),
-              );
-            });
-          }
-
-          //Widget info to enter domain.
-          if (snapshot.data!.isEmpty) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Center(
-                  child: Icon(
-                    Icons.warning,
-                    color: Colors.orange,
-                    size: 150,
-                  ),
+          //Message of enter in domain.
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Center(
+                child: Icon(
+                  Icons.warning,
+                  color: Colors.orange,
+                  size: 150,
                 ),
-                Text(
-                  "You must be part of a domain to use the features of this application.",
-                  style: TextStyle(fontSize: 22),
-                ),
-              ],
-            );
-          }
+              ),
+              const Text(
+                  "You must be part of a domain to use the features of this application."),
 
-          return const Center(
-              child: CircularProgressIndicator(
-            color: Colors.blue,
-          ));
+              //Button
+              Container(
+                height: 50,
+                margin: const EdgeInsets.all(15),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RoutesPages.joinDomain);
+                  },
+                  icon: const Icon(Icons.login),
+                  label: const Text("Sign in to the domain."),
+                ),
+              ),
+            ],
+          );
         },
       ),
-      bottomNavigationBar: ButtonBottomNavigator(
-          icon: const Icon(
-            Icons.login,
-            color: Colors.white,
-            size: 32,
-          ),
-          onTap: () => Navigator.pushNamed(context, RoutesPages.joinDomain),
-          text: "Sign in to the domain"),
     );
   }
 }
