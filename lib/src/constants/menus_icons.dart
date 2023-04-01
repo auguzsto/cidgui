@@ -10,7 +10,6 @@ abstract class DrawerMenuIcons {
 abstract class MyMenuIcons {
   static const List<IconData> icons = [
     Icons.exit_to_app,
-    Icons.folder_shared,
     Icons.list,
   ];
 }

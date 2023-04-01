@@ -14,10 +14,11 @@ class BottomNavigator extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(22),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: List.generate(
           MyMenu.options.length,
           (index) {
+            //Navigator menu.
             return MouseRegion(
               cursor: MaterialStateMouseCursor.clickable,
               child: GestureDetector(
@@ -26,12 +27,11 @@ class BottomNavigator extends StatelessWidget {
                       ? Navigator.pushNamed(context, RoutesPages.leaveDomain)
                       : index == 1
                           ? Navigator.pushNamed(
-                              context, RoutesPages.addFolderShared)
-                          : index == 2
-                              ? Navigator.pushNamed(
-                                  context, RoutesPages.listFolders)
-                              : null;
+                              context, RoutesPages.listFolders)
+                          : null;
                 },
+
+                //Menu labels and icons.
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   child: Column(

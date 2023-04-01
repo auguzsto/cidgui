@@ -1,7 +1,6 @@
 abstract class MyMenu {
   static const List<String> options = [
     'Leave domain',
-    'Add folder shared',
     'Folders shared',
   ];
 }

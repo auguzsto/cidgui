@@ -147,7 +147,7 @@ class ListFoldersPages extends StatelessWidget {
           Navigator.of(context).pushNamed(RoutesPages.addFolderShared);
         },
         label: const Text("Add folder"),
-        icon: const Icon(Icons.folder),
+        icon: const Icon(Icons.folder_shared),
       ),
     );
   }
