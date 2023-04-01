@@ -42,7 +42,7 @@ class AppWidget extends StatelessWidget {
         RoutesPages.delFolderShared: (context) => const ShareDelPage(),
         RoutesPages.leaveDomain: (context) => LeaveDomainPage(),
         RoutesPages.checkDomain: (context) => const HomeCheckPage(),
-        RoutesPages.listFolders: (context) => const ListFoldersPages(),
+        RoutesPages.listFolders: (context) => ListFoldersPages(),
         RoutesPages.updateFolder: (context) => ShareUpdatePage()
       },
     );

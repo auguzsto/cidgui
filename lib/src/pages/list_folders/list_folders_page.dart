@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ListFoldersPages extends StatelessWidget {
-  const ListFoldersPages({super.key});
+  ListFoldersPages({super.key});
+
+  final folderController = FolderController();
+  final controller = TextEditingController();
+  final utilService = UtilService();
+  final ValueNotifier<bool> isSearch = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -144,37 +149,6 @@ class ListFoldersPages extends StatelessWidget {
         label: const Text("Add folder"),
         icon: const Icon(Icons.folder),
       ),
-    );
-  }
-}
-
-final folderController = FolderController();
-//final cid = CidController();
-final controller = TextEditingController();
-final utilService = UtilService();
-ValueNotifier<bool> isSearch = ValueNotifier<bool>(false);
-
-//Delete folder.
-class _DeleteFolder extends StatefulWidget {
-  const _DeleteFolder({
-    super.key,
-    required this.folderModel,
-  });
-
-  final FolderModel folderModel;
-
-  @override
-  State<_DeleteFolder> createState() => _DeleteFolderState();
-}
-
-class _DeleteFolderState extends State<_DeleteFolder> {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        await cid.shareDel(widget.folderModel.name!, context);
-      },
-      child: const Icon(Icons.delete),
     );
   }
 }
