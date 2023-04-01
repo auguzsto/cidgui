@@ -1,70 +1,87 @@
+import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
 import 'package:cidgui/src/controllers/folder_controller.dart';
 import 'package:cidgui/src/models/folder_model.dart';
 import 'package:cidgui/src/pages/share_update/share_update_page.dart';
 import 'package:cidgui/src/services/util_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ListFoldersPages extends StatefulWidget {
+class ListFoldersPages extends StatelessWidget {
   const ListFoldersPages({super.key});
 
   @override
-  State<ListFoldersPages> createState() => _ListFoldersPagesState();
-}
-
-final folderController = FolderController();
-final cid = CidController();
-final controller = TextEditingController();
-final utilService = UtilService();
-bool isSearch = false;
-
-class _ListFoldersPagesState extends State<ListFoldersPages> {
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    CidController cid = Provider.of<CidController>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("List folders"),
+        title: const Text("List Folders"),
       ),
-      body: FutureBuilder(
-        future: isSearch == false
-            ? folderController.all()
-            : folderController.getByName(controller.text),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
 
-          //List of the folders shared.
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              //Constructor folderModel.
-              final folderModel = FolderModel.fromMap(snapshot.data![index]);
+      //Body
+      body: AnimatedBuilder(
+        animation: isSearch,
+        builder: (context, child) {
+          //Future
+          return FutureBuilder(
+            future: isSearch.value == false
+                ? folderController.all()
+                : folderController.getByName(controller.text),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-              return ListTile(
-                leading: const Icon(
-                  Icons.folder,
-                  color: Colors.blue,
-                ),
-                trailing: MouseRegion(
-                  cursor: MaterialStateMouseCursor.clickable,
-                  child: _DeleteFolder(folderModel: folderModel),
-                ),
-                title: MouseRegion(
-                  cursor: MaterialStateMouseCursor.clickable,
-                  child: GestureDetector(
-                    onTap: () => UtilService.routePage(
-                      context,
-                      ShareUpdatePage(
-                        folder: folderModel,
+              //List of the folders shared.
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  //Constructor folderModel.
+                  final folderModel =
+                      FolderModel.fromMap(snapshot.data![index]);
+
+                  return ListTile(
+                    leading: const Icon(
+                      Icons.folder,
+                      color: Colors.blue,
+                    ),
+                    trailing: AnimatedBuilder(
+                      animation: cid.isLoading,
+                      builder: (context, child) {
+                        if (cid.isLoading.value) {
+                          return const SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: CircularProgressIndicator());
+                        }
+
+                        return IconButton(
+                          splashRadius: 18,
+                          onPressed: () async {
+                            await cid.shareDel(folderModel.name!, context);
+                          },
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                        );
+                      },
+                    ),
+                    title: MouseRegion(
+                      cursor: MaterialStateMouseCursor.clickable,
+                      child: GestureDetector(
+                        onTap: () => UtilService.routePage(
+                          context,
+                          ShareUpdatePage(
+                            folder: folderModel,
+                          ),
+                        ),
+                        child: Text(folderModel.name!),
                       ),
                     ),
-                    child: Text(folderModel.name!),
-                  ),
-                ),
+                  );
+                },
               );
             },
           );
@@ -72,7 +89,7 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
       ),
 
       //Labels search.
-      bottomSheet: Container(
+      bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: Colors.blue,
         ),
@@ -85,9 +102,9 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
               width: size.width / 1.1,
               child: TextFormField(
                 onChanged: (value) {
-                  setState(() {
-                    value.isEmpty ? isSearch = false : isSearch = true;
-                  });
+                  value.isEmpty
+                      ? isSearch.value = false
+                      : isSearch.value = true;
                 },
                 controller: controller,
                 autofocus: false,
@@ -118,9 +135,24 @@ class _ListFoldersPagesState extends State<ListFoldersPages> {
           ],
         ),
       ),
+
+      //Floating button action.
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context).pushNamed(RoutesPages.addFolderShared);
+        },
+        label: const Text("Add folder"),
+        icon: const Icon(Icons.folder),
+      ),
     );
   }
 }
+
+final folderController = FolderController();
+//final cid = CidController();
+final controller = TextEditingController();
+final utilService = UtilService();
+ValueNotifier<bool> isSearch = ValueNotifier<bool>(false);
 
 //Delete folder.
 class _DeleteFolder extends StatefulWidget {

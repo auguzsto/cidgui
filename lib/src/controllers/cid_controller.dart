@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cidgui/src/constants/commands.dart';
 import 'package:cidgui/src/constants/groupmanager.dart';
 import 'package:cidgui/src/constants/routes.dart';
@@ -10,13 +8,15 @@ import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
 
-class CidController {
+class CidController with ChangeNotifier {
   final shell = Shell();
   final handlers = MessagesHandlers();
   final stdout = StdoutController();
   final folderController = FolderController();
   final domainController = DomainController();
   String error = "";
+
+  ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
 
   //Add shared folder cid.
   Future shareAdd(
@@ -71,6 +71,7 @@ class CidController {
           message: "Error. Check the entered data.",
           isError: true);
     }
+    notifyListeners();
   }
 
   //Update shared
@@ -102,16 +103,20 @@ class CidController {
         );
       }
     }
+    notifyListeners();
   }
 
   //Delete shared folder cid.
   Future shareDel(String name, BuildContext context) async {
     try {
       //Removing.
+      isLoading.value = true;
+
       await shell.run('''
         ${Commands.cidShareDel} '$name' 
         ''').then((value) {
         folderController.deleteByName(name);
+        isLoading.value = false;
         return handlers.message(
             context: context, message: "Done, your folder was removed.");
       });
@@ -124,6 +129,7 @@ class CidController {
       return handlers.message(
           context: context, message: "Error", isError: true);
     }
+    notifyListeners();
   }
 
   //Join in AD.

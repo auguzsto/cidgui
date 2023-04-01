@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cidgui/src/components/suffixicon_label.dart';
 import 'package:cidgui/src/constants/commands.dart';
 import 'package:cidgui/src/constants/helps_dialogs.dart';
@@ -10,6 +8,7 @@ import 'package:cidgui/src/controllers/stdout_controller.dart';
 import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddSharedFolder extends StatefulWidget {
   const AddSharedFolder({super.key});
@@ -40,7 +39,7 @@ List<TextEditingController> controllers = [
   TextEditingController(),
   TextEditingController(),
 ];
-final cid = CidController();
+//final cid = CidController();
 final handlers = MessagesHandlers();
 final folderController = FolderController();
 final stdoutController = StdoutController();
@@ -49,6 +48,8 @@ bool isLoading = false;
 class _AddSharedFolderState extends State<AddSharedFolder> {
   @override
   Widget build(BuildContext context) {
+    final cid = Provider.of<CidController>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Shared folder"),

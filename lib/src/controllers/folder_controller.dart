@@ -1,6 +1,7 @@
 import 'package:cidgui/src/repository/folder_repository.dart';
+import 'package:flutter/material.dart';
 
-class FolderController {
+class FolderController extends ChangeNotifier {
   final folderRepository = FolderRepository();
 
   //Add folder

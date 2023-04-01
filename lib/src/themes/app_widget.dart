@@ -32,6 +32,8 @@ class AppWidget extends StatelessWidget {
           ),
         ),
       ),
+
+      //Routes
       initialRoute: '/',
       routes: {
         RoutesPages.home: (context) => const HomePage(),
