@@ -12,7 +12,7 @@ class DatabaseServices {
     return await databaseFactory.openDatabase(
       DatabaseConfig.database,
       options: OpenDatabaseOptions(
-        version: 2,
+        version: 3,
         singleInstance: true,
       ),
     );
