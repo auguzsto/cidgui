@@ -1,3 +1,5 @@
+import 'package:cidgui/src/constants/groupmanager.dart';
+
 abstract class Commands {
   static const String cidShareAdd = 'sudo cid share add mode=common';
   static const String cidImportAccount = 'sudo cid account add';
@@ -5,7 +7,8 @@ abstract class Commands {
   static const String cidJoin = 'sudo cid join';
   static const String cidLeave = 'sudo cid leave';
   static const String chmodDefault = 'sudo chmod -R 771';
-  static const String groupOwner = "sudo chgrp 'domain admins'";
+  static const String groupOwner =
+      "sudo setfacl -m g:'${GroupManager.main}':rwx";
   static const String addUserDefault = 'everyone';
   static const String addGroupDefault = 'everyone';
   static const String ruleAddUser = '+u:';

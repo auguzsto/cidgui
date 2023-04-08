@@ -37,17 +37,12 @@ class CidController with ChangeNotifier {
 
             //Group files administrator.
             await shell.run('''
-              ${Commands.cidShareAdd} name='$name' path='$path' rule='${Commands.ruleAddGroup}${GroupManager.main}${Commands.ruleReadAndWrite}'
+              ${Commands.groupOwner} '$path'
               ''');
 
             //CHMOD.
             await shell.run('''
             ${Commands.chmodDefault} '$path'
-            ''');
-
-            //Group Owner.
-            await shell.run('''
-            ${Commands.groupOwner} '$path'
             ''');
 
             //If folder was added.
