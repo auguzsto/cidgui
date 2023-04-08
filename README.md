@@ -24,6 +24,8 @@ $ sudo wget https://github.com/auguzsto/cidgui/releases/download/beta-v1.4/cidgu
 
 $ sudo apt-get -y install libsqlite3-0 libsqlite3-dev 
 
+$ sudo chmod -R 777 /opt/
+
 ## Editar arquivo sudoers.
 1. Será necessário alterar requisição de senha para usuários sudoers.
 
