@@ -37,7 +37,7 @@ class AppWidget extends StatelessWidget {
       initialRoute: '/',
       routes: {
         RoutesPages.home: (context) => const HomePage(),
-        RoutesPages.addFolderShared: (context) => const AddSharedFolder(),
+        RoutesPages.addFolderShared: (context) => AddSharedFolder(),
         RoutesPages.joinDomain: (context) => const JoinDomainPage(),
         RoutesPages.delFolderShared: (context) => const ShareDelPage(),
         RoutesPages.leaveDomain: (context) => LeaveDomainPage(),

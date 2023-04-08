@@ -1,5 +1,4 @@
 import 'package:cidgui/src/constants/commands.dart';
-import 'package:cidgui/src/constants/groupmanager.dart';
 import 'package:cidgui/src/constants/routes.dart';
 import 'package:cidgui/src/controllers/domain_controller.dart';
 import 'package:cidgui/src/controllers/folder_controller.dart';

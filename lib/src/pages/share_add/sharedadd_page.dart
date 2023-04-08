@@ -31,7 +31,7 @@ List<String> rules = [
 
 String? valuesRules;
 
-String? selectedValue;
+String selectedValue = "Only read";
 
 List<TextEditingController> controllers = [
   TextEditingController(),

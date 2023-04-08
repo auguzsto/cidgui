@@ -32,7 +32,7 @@ List rules = [
   'Read and write',
 ];
 
-String? selectedValue;
+String? selectedValue = "Only read";
 String? valuesRules;
 
 List operationRulesUsersAndGroups = [
@@ -105,7 +105,7 @@ class _ShareUpdatePageState extends State<ShareUpdatePage> {
                                             Text(item),
                                           ],
                                         ),
-                                        value: item,
+                                        value: item[0],
                                       ),
                                     )
                                     .toList(),

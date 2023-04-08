@@ -1,5 +1,6 @@
 import 'package:cidgui/src/constants/labels_icons.dart';
 import 'package:cidgui/src/controllers/cid_controller.dart';
+import 'package:cidgui/src/handlers/messages_handlers.dart';
 import 'package:cidgui/src/pages/share_add/sharedadd_page.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class _LeaveDomainPageState extends State<LeaveDomainPage> {
   ];
 
   final cid = CidController();
+  final handlers = MessagesHandlers();
   bool isLoading = false;
 
   @override
